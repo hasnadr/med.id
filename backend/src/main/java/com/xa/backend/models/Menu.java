@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "menu")
@@ -27,11 +26,11 @@ public class Menu {
     private String Url;
 
     @Column(name = "parent_id")
-    private String parentId;
+    private Long parentId;
 
     @ManyToOne
-    @JoinColumn(name="id", insertable = false, updatable = false)
-    public Role role;
+    @JoinColumn(name="parent_id", insertable = false, updatable = false)
+    public Menu menu;
     
     @Column(name = "big_icon", length = 100)
     private String bigIcon;
@@ -39,7 +38,6 @@ public class Menu {
     @Column(name = "small_icon", length = 100)
     private String smallIcon;
 
-    @NotNull
     @Column(name = "created_by")
     private Long createdBy;
 
@@ -47,7 +45,6 @@ public class Menu {
     @JoinColumn(name="created_by", insertable = false, updatable = false)
     public User userCreated;
 
-    @NotNull
     @Column(name = "created_on")
     private Timestamp createdOn;
 
@@ -71,7 +68,6 @@ public class Menu {
     @Column(name = "deleted_on")
     private Timestamp deletedOn;
 
-    @NotNull
     @Column(name="is_delete", columnDefinition = "boolean default false")
     private Boolean Deleted;
 
@@ -99,20 +95,20 @@ public class Menu {
         Url = url;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    public String getParentId() {
+    public Long getParentId() {
         return parentId;
     }
 
-    public void setParentId(String parentId) {
+    public void setParentId(Long parentId) {
         this.parentId = parentId;
+    }
+
+    public Menu getMenu() {
+        return menu;
+    }
+
+    public void setMenu(Menu menu) {
+        this.menu = menu;
     }
 
     public String getBigIcon() {
@@ -131,20 +127,20 @@ public class Menu {
         this.smallIcon = smallIcon;
     }
 
-    public User getUserCreated() {
-        return userCreated;
-    }
-
-    public void setUserCreated(User userCreated) {
-        this.userCreated = userCreated;
-    }
-
     public Long getCreatedBy() {
         return createdBy;
     }
 
     public void setCreatedBy(Long createdBy) {
         this.createdBy = createdBy;
+    }
+
+    public User getUserCreated() {
+        return userCreated;
+    }
+
+    public void setUserCreated(User userCreated) {
+        this.userCreated = userCreated;
     }
 
     public Timestamp getCreatedOn() {
@@ -155,20 +151,20 @@ public class Menu {
         this.createdOn = createdOn;
     }
 
-    public User getUserModified() {
-        return userModified;
-    }
-
-    public void setUserModified(User userModified) {
-        this.userModified = userModified;
-    }
-
     public Long getModifiedBy() {
         return modifiedBy;
     }
 
     public void setModifiedBy(Long modifiedBy) {
         this.modifiedBy = modifiedBy;
+    }
+
+    public User getUserModified() {
+        return userModified;
+    }
+
+    public void setUserModified(User userModified) {
+        this.userModified = userModified;
     }
 
     public Timestamp getModifiedOn() {
@@ -179,20 +175,20 @@ public class Menu {
         this.modifiedOn = modifiedOn;
     }
 
-    public User getUserDeleted() {
-        return userDeleted;
-    }
-
-    public void setUserDeleted(User userDeleted) {
-        this.userDeleted = userDeleted;
-    }
-
     public Long getDeletedBy() {
         return deletedBy;
     }
 
     public void setDeletedBy(Long deletedBy) {
         this.deletedBy = deletedBy;
+    }
+
+    public User getUserDeleted() {
+        return userDeleted;
+    }
+
+    public void setUserDeleted(User userDeleted) {
+        this.userDeleted = userDeleted;
     }
 
     public Timestamp getDeletedOn() {
@@ -210,6 +206,5 @@ public class Menu {
     public void setDeleted(Boolean deleted) {
         Deleted = deleted;
     }
-
     
 }

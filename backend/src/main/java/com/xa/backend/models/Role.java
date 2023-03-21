@@ -27,7 +27,6 @@ public class Role {
     @Column(name = "code", length = 20)
     private String Code;
 
-    @NotNull
     @Column(name = "created_by")
     private Long createdBy;
 
@@ -59,7 +58,6 @@ public class Role {
     @Column(name = "deleted_on")
     private Timestamp deletedOn;
 
-    @NotNull
     @Column(name="is_delete", columnDefinition = "boolean default false")
     private Boolean Deleted;
 

@@ -28,12 +28,11 @@ public class Biodata {
     private String mobilePhone;
 
     @Column(name = "image")
-    private Byte Image;
+    private String Image;
 
     @Column(name = "image_path", length = 255)
     private String imagePath;
 
-    @NotNull
     @Column(name = "created_by")
     private Long createdBy;
 
@@ -65,7 +64,6 @@ public class Biodata {
     @Column(name = "deleted_on")
     private Timestamp deletedOn;
 
-    @NotNull
     @Column(name="is_delete", columnDefinition = "boolean default false")
     private Boolean Deleted;
 
@@ -93,11 +91,11 @@ public class Biodata {
         this.mobilePhone = mobilePhone;
     }
 
-    public Byte getImage() {
+    public String getImage() {
         return Image;
     }
 
-    public void setImage(Byte image) {
+    public void setImage(String image) {
         Image = image;
     }
 

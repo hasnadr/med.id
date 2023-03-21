@@ -49,7 +49,6 @@ public class User {
     @Column(name = "last_login")
     private Timestamp lastLogin;
 
-    @NotNull
     @Column(name = "created_by")
     private Long createdBy;
 
@@ -81,7 +80,6 @@ public class User {
     @Column(name = "deleted_on")
     private Timestamp deletedOn;
 
-    @NotNull
     @Column(name="is_delete", columnDefinition = "boolean default false")
     private Boolean Deleted;
 

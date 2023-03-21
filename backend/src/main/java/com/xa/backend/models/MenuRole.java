@@ -34,7 +34,6 @@ public class MenuRole {
     @JoinColumn(name = "role_id", insertable = false, updatable = false)
     public Role role;
 
-    @NotNull
     @Column(name = "created_by")
     private Long createdBy;
 
@@ -66,7 +65,6 @@ public class MenuRole {
     @Column(name = "deleted_on")
     private Timestamp deletedOn;
 
-    @NotNull
     @Column(name="is_delete", columnDefinition = "boolean default false")
     private Boolean Deleted;
 

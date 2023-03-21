@@ -40,16 +40,16 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         
           <form class="d-flex">
-            <input class="form-control form-control-sm" type="text" placeholder="Cari Dokter atau Faskes" aria-label="Search" size="90" style="margin:5px;">
+            <input class="form-control form-control-sm" type="text" placeholder="Cari Dokter atau Faskes" aria-label="Search" size="100" style="margin:5px;">
             <span>
               <button type="button" class="btn btn-outline-secondary border-start-0 border-bottom-0 border ms-n5" style="background-color: rgb(44, 156, 219); margin:5px;">
                 <i class="fa fa-search" style="color: white;"></i>
               </button>
             </span>
 
-            <button class="btn btn-primary btn-sm" type="submit" style="width: 100px; margin: 5px; color: rgb(44, 156, 219); background-color: white;">Daftar</button>
+            <button class="btn btn-primary btn-sm" type="submit" style="width: 100px; margin: 10px; color: rgb(44, 156, 219); background-color: white;">Daftar</button>
             
-            <button class="btn btn-primary btn-sm" type="submit" style="width: 100px; margin: 5px; color: white; background-color: rgb(44, 156, 219);">Masuk</button>
+            <button class="btn btn-primary btn-sm" type="submit" style="width: 100px; margin: 10px; color: white; background-color: rgb(44, 156, 219);">Masuk</button>
             
           </form>
         </ul>
@@ -59,73 +59,66 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
     </div>
   </nav>
 
-  <div class="overflow-hidden" style="width: 280px; background: rgb(135, 219, 247); 
-  background: linear-gradient(180deg, rgba(219, 244, 251)0%, rgba(135, 219, 247)  100%);
-  position:fixed;">
-    <a href="" class="d-flex align-items-center pb-3 mb-3 link-dark">
-      <svg class="bi me-2" width="30" height="24"><use xlink:href=""/></svg>
-    </a>
-    <ul class="list-unstyled ps-0">
-      <li class="mb-1">
-        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
-          Home
-        </button>
-        <div class="collapse show" id="home-collapse">
-          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href="#" class="link-dark rounded">Overview</a></li>
-            <li><a href="#" class="link-dark rounded">Updates</a></li>
-            <li><a href="#" class="link-dark rounded">Reports</a></li>
-          </ul>
-        </div>
-      </li>
-      <li class="mb-1">
-        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
-          Dashboard
-        </button>
-        <div class="collapse" id="dashboard-collapse">
-          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href="#" class="link-dark rounded">Overview</a></li>
-            <li><a href="#" class="link-dark rounded">Weekly</a></li>
-            <li><a href="#" class="link-dark rounded">Monthly</a></li>
-            <li><a href="#" class="link-dark rounded">Annually</a></li>
-          </ul>
-        </div>
-      </li>
-      <li class="mb-1">
-        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
-          Orders
-        </button>
-        <div class="collapse" id="orders-collapse">
-          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href="#" class="link-dark rounded">New</a></li>
-            <li><a href="#" class="link-dark rounded">Processed</a></li>
-            <li><a href="#" class="link-dark rounded">Shipped</a></li>
-            <li><a href="#" class="link-dark rounded">Returned</a></li>
-          </ul>
-        </div>
-      </li>
-      <li class="mb-1">
-        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
-          Account
-        </button>
-        <div class="collapse" id="account-collapse">
-          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <li><a href="#" class="link-dark rounded">New...</a></li>
-            <li><a href="#" class="link-dark rounded">Profile</a></li>
-            <li><a href="#" class="link-dark rounded">Settings</a></li>
-            <li><a href="#" class="link-dark rounded">Sign out</a></li>
-          </ul>
-        </div>
-      </li>
-    </ul>
-  </div>
 
+<div class="body" style="height:400px">
+    <div class="sidebar" style="width: 150px; background: rgb(135, 219, 247); 
+  background: linear-gradient(180deg, rgba(219, 244, 251)0%, rgba(135, 219, 247)  100%); height: 100%;">
+
+<a href="" class="d-flex" style="position: static; padding-left: 100px;">
+    <h4>...</h4>
+  </a>
+  <ul class="nav nav-pills flex-column mb-auto">
+      <li class="mb-1">
+      <button class="btn btn-toggle" id="dropdownMenuButton" data-bs-toggle="collapse" aria-expanded="false">
+        Home
+      </button>
+      </li>
+      <div class="collapse" id="dashboard-collapse">
+        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+          <li><a href="#" class="link-dark rounded">Overview</a></li>
+          <li><a href="#" class="link-dark rounded">Weekly</a></li>
+          <li><a href="#" class="link-dark rounded">Monthly</a></li>
+          <li><a href="#" class="link-dark rounded">Annually</a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="mb-1">
+      <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
+        Orders
+      </button>
+      <div class="collapse" id="orders-collapse">
+        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+          <li><a href="#" class="link-dark rounded">New</a></li>
+          <li><a href="#" class="link-dark rounded">Processed</a></li>
+          <li><a href="#" class="link-dark rounded">Shipped</a></li>
+          <li><a href="#" class="link-dark rounded">Returned</a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="mb-1">
+      <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
+        Account
+      </button>
+      <div class="collapse" id="account-collapse">
+        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+          <li><a href="#" class="link-dark rounded">New...</a></li>
+          <li><a href="#" class="link-dark rounded">Profile</a></li>
+          <li><a href="#" class="link-dark rounded">Settings</a></li>
+          <li><a href="#" class="link-dark rounded">Sign out</a></li>
+        </ul>
+      </div>
+    </li>
+  </ul>
+
+    </div>
+</div>
 
 <footer class="footer mt-auto py-3" style="position: absolute; bottom: 0; width: 100%; height: 120px; background-color:rgb(135, 219, 247);">
     <div class="container">
       <!--span class="text-muted">CopyRight&copy;2023, Batch 313, XA - Jakarta, Indonesia</span-->
     </div>
 </footer>
+
 
 </body>
 </html>
