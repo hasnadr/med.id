@@ -29,6 +29,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
     </div>
   </div>
 
+  <!-- Header -->
   <nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgb(219, 244, 251);">
     <div class="container-fluid">
       <img src="/images/plus-icon.png">
@@ -59,10 +60,10 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
     </div>
   </nav>
 
-
+  <!-- Sidebar -->
 <div class="body" style="height:400px">
     <div class="sidebar" style="width: 150px; background: rgb(135, 219, 247); 
-  background: linear-gradient(180deg, rgba(219, 244, 251)0%, rgba(135, 219, 247)  100%); height: 100%;">
+  background: linear-gradient(180deg, rgba(219, 244, 251)0%, rgba(135, 219, 247)  100%); float: left; height: 96%;">
 
 <a href="" class="d-flex" style="position: static; padding-left: 100px;">
     <h4>...</h4>
@@ -111,8 +112,13 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
   </ul>
 
     </div>
+    <div id="content">
+        <section layout:fragment="content" style="padding: 20px" id="baseContent"></section>
+    </div>
 </div>
 
+
+<!-- Footer -->
 <footer class="footer mt-auto py-3" style="position: absolute; bottom: 0; width: 100%; height: 120px; background-color:rgb(135, 219, 247);">
     <div class="container">
       <!--span class="text-muted">CopyRight&copy;2023, Batch 313, XA - Jakarta, Indonesia</span-->
