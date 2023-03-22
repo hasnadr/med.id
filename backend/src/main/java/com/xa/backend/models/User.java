@@ -28,10 +28,10 @@ public class User {
     public Biodata biodata;
 
     @Column(name = "role_id")
-    private String roleId;
+    private Long roleId;
 
     @ManyToOne
-    @JoinColumn(name="id", insertable = false, updatable = false)
+    @JoinColumn(name="role_id", insertable = false, updatable = false)
     public Role role;
 
     @Column(name = "email", length = 100)
@@ -115,11 +115,11 @@ public class User {
         this.role = role;
     }
 
-    public String getRoleId() {
+    public Long getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(String roleId) {
+    public void setRoleId(Long roleId) {
         this.roleId = roleId;
     }
 

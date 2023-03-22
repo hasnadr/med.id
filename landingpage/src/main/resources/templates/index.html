@@ -9,25 +9,42 @@
 <div layout:fragment="content">
     <div>
         <table>
-            <tbody id="">
-                <tr>
-                    <td>
-                        <div class="card" style="width: 5rem;">
-                            <img src="/images/plus-icon.png" class="card-img-top" alt="...">
-                            <div class="card-body">
-                              <p class="card-text"></p>
-                            </div>
-                          </div>
-                        Menu 1
-                    </td>
-                    <td>
-                        Menu 2
-                    </td>
-                </tr>
+            <tr>
+                <td colspan="5" style="background-color:#333; color:white">
+                    <button class="btn btn-primary" onclick="userDetail()" id="user">Test</button>
+                </td>
+            </tr>
+            <tr>
+                Welcome,
+            </tr>
+            <tbody id="userData">
             </tbody>
-            
         </table>
     </div>
+    <script>
+       userdetail()
+       function userDetail(roleId) {
+        $.ajax({
+            url:'http://localhost:5000/getuserrole/' + roleId,
+            type:'GET',
+            dataType:'json',
+            contentType:'application/json',
+            success:function(userdetail) {
+                console.log(userdetail)
+                str = '';
+                for(i = 0; i < userdetail.length; i++) {
+                    str += `
+                <tr>
+                    <td>${userdetail[i].biodata.fullname}</td>  
+                </tr>
+                `;
+                }
+                $('#userData').html(str)
+            }
+        })
+       }
+       
+    </script>
 </div>
 
 </body>

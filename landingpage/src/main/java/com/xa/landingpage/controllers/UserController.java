@@ -6,19 +6,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping(value="/")
-public class LandingPageController {
-    
-    @GetMapping("/home")
-    public ModelAndView home() {
-        ModelAndView view = new ModelAndView("/home"); //file html
-        return view;
-    }
-
-    @GetMapping("/index")
+@RequestMapping("/")
+public class UserController {
+    @GetMapping("/")
     public ModelAndView index() {
-        ModelAndView view = new ModelAndView("/index"); //file html
+        ModelAndView view = new ModelAndView("/index");
         return view;
     }
-
 }

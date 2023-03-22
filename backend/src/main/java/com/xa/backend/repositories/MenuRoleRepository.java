@@ -7,5 +7,6 @@ import com.xa.backend.models.MenuRole;
 
 @Repository
 public interface MenuRoleRepository extends JpaRepository<MenuRole, Long> {
-    
+   
+
 }

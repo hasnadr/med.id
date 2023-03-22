@@ -42,14 +42,14 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
           <form class="d-flex">
             <input class="form-control form-control-sm" type="text" placeholder="Cari Dokter atau Faskes" aria-label="Search" size="100" style="margin:5px;">
             <span>
-              <button type="button" class="btn btn-outline-secondary border-start-0 border-bottom-0 border ms-n5" style="background-color: rgb(44, 156, 219); margin:5px;">
+              <button type="button" onclick="searchText()" class="btn btn-outline-secondary border-start-0 border-bottom-0 border ms-n5" style="background-color: rgb(44, 156, 219); margin:5px;">
                 <i class="fa fa-search" style="color: white;"></i>
               </button>
             </span>
 
-            <button class="btn btn-primary btn-sm" type="submit" style="width: 100px; margin: 10px; color: rgb(44, 156, 219); background-color: white;">Daftar</button>
+            <button class="btn btn-primary btn-sm" type="button" onclick="signupPage()" style="width: 100px; margin: 10px; color: rgb(44, 156, 219); background-color: white;">Daftar</button>
             
-            <button class="btn btn-primary btn-sm" type="submit" style="width: 100px; margin: 10px; color: white; background-color: rgb(44, 156, 219);">Masuk</button>
+            <button class="btn btn-primary btn-sm" type="button" onclick="loginPage()" style="width: 100px; margin: 10px; color: white; background-color: rgb(44, 156, 219);">Masuk</button>
           </form>
         </ul>
         
@@ -57,12 +57,47 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
     </div>
   </nav>
 
+  <div id="content">
+    <section layout:fragment="content" style="padding:20px;" id="baseContent"></section>
+  </div>
 
-<footer class="footer mt-auto py-3" style="position: absolute; bottom: 0; width: 100%; height: 120px; background-color:rgb(135, 219, 247);">
-    <div class="container">
-      <!--span class="text-muted">CopyRight&copy;2023, Batch 313, XA - Jakarta, Indonesia</span-->
+<footer class="footer mt-auto py-3" style="position: absolute; bottom: 0; width: 100%; height: 170px; background-color:rgb(135, 219, 247);">
+    <div class="container text-muted">
+      <div class="row" style="padding-left: 100px;">
+        <div class="col">
+          <a><small><b>Contact Information</b></small></a><br>
+          <a><small>Satrio Tower Building, 25th Floor, Jl. Prof Dr. Satrio Kav C4</small></a><br>
+          <a><small>Jakarta Selatan 12950, Indonesia</small></a><br>
+          <a><small>Email: contact@xsis.academy</small></a><br>
+          <a><small>Phone +62 21 2788 3570</small></a><br>
+          <a><small>Fax. +62 21 2788 3573</small></a>
+        </div>
+        <div class="col">
+            <a><small><b>Team Java Batch 313B</b></small></a><br>
+            <a><small>Dio Riksa Anugrah</small></a><br>
+            <a><small>Fariduddin Jiddan</small></a><br>
+            <a><small>Firsta Rifa</small></a><br>
+            <a><small>Hasnadhia Raufani</small></a><br>
+            <a><small>Nur Ikhsan Imanudin</small></a>
+        </div>
+      </div>
     </div>
 </footer>
+
+<script>
+       function searchText() {
+
+       }
+
+       function signupPage() {
+
+       }
+
+       function loginPage() {
+        
+       }
+
+</script>
 
 </body>
 </html>

@@ -8,16 +8,40 @@
 <body>
 
 <div layout:fragment="content">
-    <table class="table">
-        <tr>
-            <td>
-            </td>
-           
-        </tr>
-        <tr>
-        </tr>
-    </table>
-
+    <div>
+        <table>
+            <tr>
+                <td colspan="5" style="background-color:#333; color:white">
+                    <button class="btn btn-primary" onclick="menuDetail()" id="menu">Menu</button>
+                </td>
+            </tr>
+            <tr>
+            <tbody id="menuData">
+            </tbody>
+        </table>
+    </div>
+<script>
+    function menuDetail() {
+        $.ajax({
+            url:'http://localhost:5000/getmenurole/',
+            type:'GET',
+            dataType:'json',
+            contentType:'application/json',
+            success:function(menudetail) {
+                console.log(menudetail)
+                str = '';
+                for(i = 0; i < menudetail.length; i++) {
+                    str += `
+                <tr>
+                    <td>${menudetail[i].name}</td>  
+                </tr>
+                `;
+                }
+                $('#menuData').html(str)
+            }
+        })
+       }
+</script>
 </div>
 
 </body>

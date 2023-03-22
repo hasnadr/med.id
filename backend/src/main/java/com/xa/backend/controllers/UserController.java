@@ -2,12 +2,14 @@ package com.xa.backend.controllers;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,4 +47,18 @@ public class UserController {
             return new ResponseEntity<User>(HttpStatus.NO_CONTENT);
         }
     }
+
+    @GetMapping("/getuserrole/{role_id}")
+    public ResponseEntity<List<Map<String, Object>>> findByRoleId(
+        @PathVariable("role_id") Long roleId
+    ) {
+        try {
+            List<Map<String, Object>> menuRole = this.userRepo.findByRoleId(roleId);
+            return new ResponseEntity<List<Map<String, Object>>>(menuRole, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<List<Map<String, Object>>>(HttpStatus.NO_CONTENT);
+        }
+    }
+
 }

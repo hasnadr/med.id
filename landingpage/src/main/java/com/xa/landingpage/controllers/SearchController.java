@@ -6,18 +6,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping(value="/")
-public class LandingPageController {
+@RequestMapping(value="/search")
+public class SearchController {
     
-    @GetMapping("/home")
-    public ModelAndView home() {
-        ModelAndView view = new ModelAndView("/home"); //file html
-        return view;
-    }
-
     @GetMapping("/index")
-    public ModelAndView index() {
-        ModelAndView view = new ModelAndView("/index"); //file html
+    public ModelAndView home() {
+        ModelAndView view = new ModelAndView("/search/index"); //file html
         return view;
     }
 
