@@ -74,4 +74,15 @@ public class MenuController {
             return new ResponseEntity<List<Map<String, Object>>>(HttpStatus.NO_CONTENT);
         }
     }
+
+    // @GetMapping("/publicmenu")
+    // public ResponseEntity<List<Map<String, Object>>> getPublicMenu() {
+    //     try {
+    //         List<Map<String, Object>> menuRole = this.menuRepo.getPublicMenu();
+    //         return new ResponseEntity<List<Map<String, Object>>>(menuRole, HttpStatus.OK);
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //         return new ResponseEntity<List<Map<String, Object>>>(HttpStatus.NO_CONTENT);
+    //     }
+    // }
 }

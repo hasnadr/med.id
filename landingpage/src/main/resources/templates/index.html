@@ -8,38 +8,61 @@
 <body>
 <div layout:fragment="content">
     <div>
-        <table>
-            <tr>
-                <td colspan="5" style="background-color:#333; color:white">
-                    <button class="btn btn-primary" onclick="userDetail()" id="user">Test</button>
-                </td>
-            </tr>
-            <tr>
-                Welcome,
-            </tr>
-            <tbody id="userData">
-            </tbody>
-        </table>
+            <div class="row" id="menuData"></tr>
     </div>
     <script>
-       userdetail()
-       function userDetail(roleId) {
+    //    userdetail()
+    //    function userDetail(roleId) {
+    //     $.ajax({
+    //         url:'http://localhost:5000/getuserrole/' + roleId,
+    //         type:'GET',
+    //         dataType:'json',
+    //         contentType:'application/json',
+    //         success:function(userdetail) {
+    //             console.log(userdetail)
+    //             str = '';
+    //             for(i = 0; i < userdetail.length; i++) {
+    //                 str += `
+    //             <tr>
+    //                 <td>${userdetail[i].biodata.fullname}</td>  
+    //             </tr>
+    //             `;
+    //             }
+    //             $('#userData').html(str)
+    //         }
+    //     })
+    //    }
+
+    loadMenu()
+       function loadMenu() {
         $.ajax({
-            url:'http://localhost:5000/getuserrole/' + roleId,
+            url:'http://localhost:5000/menu/1/1',
             type:'GET',
-            dataType:'json',
             contentType:'application/json',
-            success:function(userdetail) {
-                console.log(userdetail)
-                str = '';
-                for(i = 0; i < userdetail.length; i++) {
-                    str += `
-                <tr>
-                    <td>${userdetail[i].biodata.fullname}</td>  
-                </tr>
-                `;
-                }
-                $('#userData').html(str)
+            success:function(menu) {
+                console.log(menu)
+                var str = '';
+                str += '<div class="container">';
+                str += '<div class="row">';
+                    for(i = 0; i < menu.length; i++) {
+                        str += '<div class="col">'
+                            // str += '<div class = "card" style = "width: 7rem;">'
+                            if(menu[i].big_icon == null) {
+                                str += `<img src = "/images/doctor.png">`
+                            } else {
+                                str+= '<figure>'
+                                str += `<img src = "/images/${menu[i].big_icon}" style="height:65px;">`
+                                str+= `<figcaption class="text-center" style="">${menu[i].name}</figcaption>`
+                                str+= '</figure>'
+                            }
+                            str += '<br>'
+                            // str+= '<div class = "card body">'
+                        str += '</div>'
+
+                    }
+                str += '</div>';
+                str += '</div>';
+                $('#menuData').html(str)
             }
         })
        }

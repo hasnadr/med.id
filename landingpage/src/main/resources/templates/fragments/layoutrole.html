@@ -62,51 +62,11 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <div class="body" style="height:400px">
     <div class="sidebar" style="width: 150px; background: rgb(135, 219, 247); 
   background: linear-gradient(180deg, rgba(219, 244, 251)0%, rgba(135, 219, 247)  100%); float: left; height: 83%;">
-
+<!-- 
 <a href="" class="d-flex" style="position: static; padding-left: 100px;">
     <h4>...</h4>
-  </a>
-  <ul class="nav nav-pills flex-column mb-auto">
-      <li class="mb-1">
-      <button class="btn btn-toggle" id="dropdownMenuButton" data-bs-toggle="collapse" aria-expanded="false">
-        Home
-      </button>
-      </li>
-      <div class="collapse" id="dashboard-collapse">
-        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-          <li><a href="#" class="link-dark rounded">Overview</a></li>
-          <li><a href="#" class="link-dark rounded">Weekly</a></li>
-          <li><a href="#" class="link-dark rounded">Monthly</a></li>
-          <li><a href="#" class="link-dark rounded">Annually</a></li>
-        </ul>
-      </div>
-    </li>
-    <li class="mb-1">
-      <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
-        Orders
-      </button>
-      <div class="collapse" id="orders-collapse">
-        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-          <li><a href="#" class="link-dark rounded">New</a></li>
-          <li><a href="#" class="link-dark rounded">Processed</a></li>
-          <li><a href="#" class="link-dark rounded">Shipped</a></li>
-          <li><a href="#" class="link-dark rounded">Returned</a></li>
-        </ul>
-      </div>
-    </li>
-    <li class="mb-1">
-      <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
-        Account
-      </button>
-      <div class="collapse" id="account-collapse">
-        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-          <li><a href="#" class="link-dark rounded">New...</a></li>
-          <li><a href="#" class="link-dark rounded">Profile</a></li>
-          <li><a href="#" class="link-dark rounded">Settings</a></li>
-          <li><a href="#" class="link-dark rounded">Sign out</a></li>
-        </ul>
-      </div>
-    </li>
+  </a> -->
+  <ul class="nav nav-pills flex-column mb-auto"  id="showMenu">
   </ul>
 
     </div>
@@ -141,6 +101,29 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 </footer>
 
 <script>
+  loadMainMenu()
+  function loadMainMenu() {
+    $.ajax({
+      url:'http://localhost:5000/menu/1',
+      type:'GET',
+      contentType:'application/json',
+      success:function(menu) {
+        console.log(menu)
+        var str = '';
+        for(i = 0; i < menu.length; i++) {
+          str += `
+          <li class = "mb-1">
+          <button class = "btn btn-toggle">
+            ${menu[i].name}
+          </button>
+          </li>
+          `;
+        }
+        console.log(str)
+        $('#showMenu').html(str)
+      }
+    })
+  }
 
       function searchText() {
         $.ajax({
