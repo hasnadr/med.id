@@ -48,7 +48,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
               </button>
             </span>
 
-            <button class="btn btn-primary btn-sm" type="button" onclick="userProfile()" style="width: 200px; margin: 10px; color: white; background-color: rgb(44, 156, 219);">Halo, </button>
+            <button class="btn btn-primary btn-sm" type="button" id="showName" onclick="userProfile()" style="width: 250px; margin: 10px; color: white; background-color: rgb(44, 156, 219); float: right;"></button>
             
           </form>
         </ul>
@@ -60,20 +60,19 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
   <!-- Sidebar -->
 <div class="body" style="height:400px">
-    <div class="sidebar" style="width: 150px; background: rgb(135, 219, 247); 
+    <div class="sidebar" style="width: 170px; background: rgb(135, 219, 247); 
   background: linear-gradient(180deg, rgba(219, 244, 251)0%, rgba(135, 219, 247)  100%); float: left; height: 91%;">
 
-  <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none">
-    <svg class="bi me-2" width="30" height="24"><use xlink:href=""/></svg>
-    <span class="fs-5 fw-semibold" style="float:right;">•••</span>
+  <a href="#" class="d-flex align-items-right mb-1 link-dark text-decoration-none" style="display: flex; justify-content: space-around; color:rgb(44, 156, 219);">
+    <svg class="" width="30" height="24"><use xlink:href=""/></svg>
+    <span class=""><b>...</b></span>
   </a>
   <ul class="nav nav-pills flex-column mb-auto"  id="showMenu">
   </ul>
-
     </div>
     <div id="content">
-      <span>
-        <section layout:fragment="content" style="padding:7rem; display: flex; justify-content: center;" id="baseContent"></section>
+      <span class="align-middle">
+        <section layout:fragment="content" style="padding:3rem;" id="baseContent"></section>
       </span>
     </div>
 </div>
@@ -115,11 +114,14 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
         var str = '';
         for(i = 0; i < menu.length; i++) {
           str += `
-          <li class = "mb-1">
-          <button class = "btn btn-toggle">
-            ${menu[i].name}
-          </button>
+          <div class="" style="">
+          <li class="nav-item">
+          <a href="#" class="nav-link active" aria-current="page" back style="background-color: transparent; color:rgb(44, 156, 219); font-weight: 600;">
+          <svg class="bi me-2" width="16" height="16"><use xlink:href=""/></svg>
+          ${menu[i].name}
+          </a>
           </li>
+          </div>
           `;
         }
         console.log(str)
@@ -148,6 +150,28 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
           success:function(result) {
             window.open('http://localhost:8086/profile/index', '_self')
             console.log(result)
+          }
+        })
+      }
+
+      loadName()
+      function loadName() {
+        $.ajax({
+          url:'http://localhost:5000/user/1',
+          type:'GET',
+          contentType:'application/json',
+          success:function(name) {
+            console.log(name)
+            var str = '';
+            for(i = 0; i < name.length; i++) {
+              str += `
+              <div class="" style="color:white; font-weight: 500;">
+              Halo, ${name[i].fullname}!
+              </div>
+              `;
+            }
+            console.log(str)
+            $('#showName').html(str)
           }
         })
       }

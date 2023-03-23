@@ -48,7 +48,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/getuserrole/{role_id}")
+    @GetMapping("/user/{role_id}")
     public ResponseEntity<List<Map<String, Object>>> findByRoleId(
         @PathVariable("role_id") Long roleId
     ) {
