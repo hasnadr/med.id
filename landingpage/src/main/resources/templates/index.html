@@ -36,7 +36,7 @@
     loadMenu()
        function loadMenu() {
         $.ajax({
-            url:'http://localhost:5000/menu/1/1',
+            url:'http://localhost:5000/menu/2',
             type:'GET',
             contentType:'application/json',
             success:function(menu) {
@@ -52,7 +52,7 @@
                             } else {
                                 str+= '<figure>'
                                 str += `<img src = "/images/${menu[i].big_icon}" style="height:65px;">`
-                                str+= `<figcaption class="text-center" style="">${menu[i].name}</figcaption>`
+                                str+= `<figcaption class="" style="">${menu[i].name}</figcaption>`
                                 str+= '</figure>'
                             }
                             str += '<br>'
