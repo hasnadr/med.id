@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping(value="/")
+@RequestMapping(value="/main")
 public class LandingPageController {
     
     @GetMapping("/home")
@@ -15,7 +15,7 @@ public class LandingPageController {
         return view;
     }
 
-    @GetMapping("/index")
+    @GetMapping("/home/user")
     public ModelAndView index() {
         ModelAndView view = new ModelAndView("/index"); //file html
         return view;
