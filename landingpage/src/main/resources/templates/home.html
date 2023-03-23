@@ -31,10 +31,12 @@
                             if(menu[i].big_icon == null) {
                                 str += `<img src = "/images/doctor.png">`
                             } else {
+                                str+= '<a href="#" class="nav-link active" aria-current="page" back style="color:rgb(44, 156, 219); font-weight: normal;">'
                                 str+= '<figure>'
                                 str += `<img src = "/images/${menu[i].big_icon}" style="height:65px;">`
                                 str+= `<figcaption class="" style="">${menu[i].name}</figcaption>`
                                 str+= '</figure>'
+                                str+= '</a>'
                             }
                             str += '<br>'
                             // str+= '<div class = "card body">'

@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.xa.backend.models.Biodata;
 import com.xa.backend.models.User;
+import com.xa.backend.repositories.BiodataRepository;
 import com.xa.backend.repositories.UserRepository;
 
 @RestController
@@ -23,6 +25,7 @@ import com.xa.backend.repositories.UserRepository;
 @CrossOrigin("*")
 public class UserController {
     @Autowired private UserRepository userRepo;
+    @Autowired private BiodataRepository biodataRepo;
 
     @GetMapping("/getuser")
     public ResponseEntity<List<User>> getAllUser() {
@@ -41,6 +44,11 @@ public class UserController {
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             user.setCreatedOn(timestamp);
             this.userRepo.save(user);
+            user.setCreatedBy(user.getId());
+            this.userRepo.save(user);
+            Biodata biodata = biodataRepo.findById(user.getBiodataId()).get();
+            biodata.setCreatedBy(user.getId());
+            this.biodataRepo.save(biodata);
             return new ResponseEntity<User>(user, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
