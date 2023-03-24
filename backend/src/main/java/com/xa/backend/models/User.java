@@ -49,6 +49,7 @@ public class User {
     @Column(name = "last_login")
     private Timestamp lastLogin;
 
+    @NotNull
     @Column(name = "created_by")
     private Long createdBy;
 

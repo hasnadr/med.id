@@ -15,7 +15,7 @@ public interface MenuRepository extends JpaRepository<Menu, Long> {
     @Query(value = "SELECT m.* FROM menu m WHERE m.is_delete = false", nativeQuery = true)
     List<Menu> getAllMenu();
 
-    @Query(value = "SELECT m.name, mr.role_id, m.big_icon " +
+    @Query(value = "SELECT m.name, mr.role_id, m.big_icon, m.url, m.id " +
     "FROM menu m " +
     "LEFT JOIN menu_role mr ON m.id = mr.menu_id " +
     "WHERE mr.role_id = ?1 AND m.parent_id ISNULL", nativeQuery = true)

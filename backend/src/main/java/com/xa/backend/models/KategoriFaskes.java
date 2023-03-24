@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "kategori_faskes")
@@ -30,6 +31,7 @@ public class KategoriFaskes {
     @JoinColumn(name="created_by", insertable = false, updatable = false)
     public User userCreated;
 
+    @NotNull
     @Column(name = "created_on")
     private Timestamp createdOn;
 

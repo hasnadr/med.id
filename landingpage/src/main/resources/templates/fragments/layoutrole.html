@@ -103,32 +103,6 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 </footer>
 
 <script>
-  loadMainMenu()
-  function loadMainMenu() {
-    $.ajax({
-      url:'http://localhost:5000/menu/1',
-      type:'GET',
-      contentType:'application/json',
-      success:function(menu) {
-        console.log(menu)
-        var str = '';
-        for(i = 0; i < menu.length; i++) {
-          str += `
-          <div class="" style="">
-          <li class="nav-item">
-          <a href="#" class="nav-link active" aria-current="page" back style="background-color: transparent; color:rgb(44, 156, 219); font-weight: 600;">
-          <svg class="bi me-2" width="16" height="16"><use xlink:href=""/></svg>
-          ${menu[i].name}
-          </a>
-          </li>
-          </div>
-          `;
-        }
-        console.log(str)
-        $('#showMenu').html(str)
-      }
-    })
-  }
 
       function searchText() {
         $.ajax({
@@ -154,10 +128,17 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
         })
       }
 
+      function getLastValue() {
+            url = window.location.href
+            var strarr = url.split('/')
+            return strarr[strarr.length-1]
+        }
+        console.log(getLastValue())
+
       loadName()
       function loadName() {
         $.ajax({
-          url:'http://localhost:5000/user/1',
+          url:'http://localhost:5000/user/' + getLastValue(),
           type:'GET',
           contentType:'application/json',
           success:function(name) {

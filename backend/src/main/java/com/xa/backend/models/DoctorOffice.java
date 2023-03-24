@@ -37,7 +37,6 @@ public class DoctorOffice {
     @Column(name = "specialization", length = 100)
     private String Specialization;
 
-    
     @Column(name = "created_by")
     private Long createdBy;
 
