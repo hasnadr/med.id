@@ -30,4 +30,13 @@ public class LandingPageController {
         return view;
     }
 
+    // @GetMapping("/user/{role_id}/{parent_id}")
+    // public ModelAndView akses(
+    //     @PathVariable("role_id") Long roleId,
+    //     @PathVariable("parent_id") Long parentId
+    // ) {
+    //     ModelAndView akses = new ModelAndView("/akses/index"); //file html
+    //     return akses;
+    // }
+
 }
