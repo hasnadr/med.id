@@ -21,7 +21,37 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          ...
+          <p style="text-align:center; color:grey;">Masukkan minimal 1 kata kunci untuk pencarian dokter Anda</p>
+            <table class="table">
+                <tr>
+                    <td colspan="2"><small style="color:grey;">Lokasi</small>
+                        <select id="locationId" class="form-select"></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2"><small style="color:grey;">Nama Dokter</small><br>
+                        <input class="form-control" id="inisialDokter" type="text" maxlength="30" size="56" ></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><small style="color:grey;">Spesialisasi/Sub-spesialisasi</small>
+                        <select id="spId" class="form-select"></select>
+                        <i><span style="color: red; font-size: 10pt;" id="spValidation"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2"><small style="color:grey;">Tindakan Medis</small>
+                        <select id="tindakanId" class="form-select"></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        <button class="btn btn-outline-primary" onclick="showPage()" style="width: 130px;">Atur Ulang</button>    
+                    </td>
+                    <td align="left">
+                        <button class="btn btn-primary" value="" onclick="cariDokter()" style="width: 130px;">Cari</button>    
+                    </td>
+                </tr>
+            </table>
         </div>
         <div class="modal-footer">
         </div>
@@ -61,7 +91,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
   <!-- Sidebar -->
 <div class="body" style="height:400px">
     <div class="sidebar" style="width: 170px; background: rgb(135, 219, 247); 
-  background: linear-gradient(180deg, rgba(219, 244, 251)0%, rgba(135, 219, 247)  100%); float: left; height: 91%;">
+  background: linear-gradient(180deg, rgba(219, 244, 251)0%, rgba(135, 219, 247)  100%); float: left; height: 99%;">
 
   <a href="#" class="d-flex align-items-right mb-1 link-dark text-decoration-none" style="display: flex; justify-content: space-around; color:rgb(44, 156, 219);">
     <svg class="" width="30" height="24"><use xlink:href=""/></svg>

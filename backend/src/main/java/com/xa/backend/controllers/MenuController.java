@@ -27,7 +27,7 @@ public class MenuController {
     @GetMapping("/getmenu")
     public ResponseEntity<List<Menu>> getAllMenu() {
         try {
-            List<Menu> menu = this.menuRepo.findAll();
+            List<Menu> menu = this.menuRepo.getAllMenu();
             return new ResponseEntity<List<Menu>>(menu, HttpStatus.OK);   
         } catch(Exception e) {
             e.printStackTrace();

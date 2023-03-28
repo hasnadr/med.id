@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "doctor_office")
+@Table(name = "t_doctor_office")
 public class DoctorOffice {
     
     @javax.persistence.Id

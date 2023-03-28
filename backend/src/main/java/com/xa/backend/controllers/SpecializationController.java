@@ -2,6 +2,7 @@ package com.xa.backend.controllers;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,14 +24,14 @@ public class SpecializationController {
     
     @Autowired private SpecializationRepository specializationRepo;
 
-    @GetMapping("/getsp")
-    public ResponseEntity<List<Specialization>> getAllSp() {
+    @GetMapping("/specialization")
+    public ResponseEntity<List<Map<String, Object>>> getAllSp() {
         try {
-            List<Specialization> sp = this.specializationRepo.findAll();
-            return new ResponseEntity<List<Specialization>>(sp, HttpStatus.OK);   
+            List<Map<String, Object>> sp = this.specializationRepo.getAllSp();
+            return new ResponseEntity<List<Map<String, Object>>>(sp, HttpStatus.OK);   
         } catch(Exception e) {
             e.printStackTrace();
-            return new ResponseEntity<List<Specialization>>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<List<Map<String, Object>>>(HttpStatus.NO_CONTENT);
         }
     }
 

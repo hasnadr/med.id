@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "usermenu")
+@Table(name = "m_user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,0 +1,83 @@
+<!Doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/" 
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title>Landing Page</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"></link>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"></link>
+    <link rel="stylesheet" href="/css/custom.css"></link>
+
+    <script src="/js/jquery-3.6.3.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<!-- Modal -->
+<div class="modal fade" id="mymodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header" >
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+          <div class="modal-body">
+            <p style="text-align:center; color:grey;">Masukkan minimal 1 kata kunci untuk pencarian dokter Anda</p>
+            <table class="table">
+                <tr>
+                    <td colspan="2"><small style="color:grey;">Lokasi</small>
+                        <select id="locationId" class="form-select"></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2"><small style="color:grey;">Nama Dokter</small><br>
+                        <input class="form-control" id="inisialDokter" type="text" maxlength="30" size="56" ></td>
+                </tr>
+                <tr>
+                    <td colspan="2"><small style="color:grey;">Spesialisasi/Sub-spesialisasi</small>
+                        <select id="spId" class="form-select"></select>
+                        <i><span style="color: red; font-size: 10pt;" id="spValidation"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2"><small style="color:grey;">Tindakan Medis</small>
+                        <select id="tindakanId" class="form-select"></select>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        <button class="btn btn-outline-primary" onclick="showModal()" style="width: 130px;">Atur Ulang</button>    
+                    </td>
+                    <td align="left">
+                        <button class="btn btn-primary" value="" onclick="cariDokter()" style="width: 130px;">Cari</button>    
+                    </td>
+                </tr>
+            </table>
+          </div>
+          <div class="modal-footer">
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgb(219, 244, 251);">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="" style="color: rgb(44, 156, 219); font-size: 14px; padding-left: 30px;">Beranda</a>
+      <a class="navbar-brand" style="color: rgb(44, 156, 219); font-size: 13px;">/</a>
+      <a class="navbar-brand text-muted" href="" style="color: rgb(44, 156, 219); font-size: 14px;">Cari Dokter</a>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      </div>
+    </div>
+  </nav>
+
+  <div id="content">
+    <span>
+      <section layout:fragment="content"id="baseContent"></section>
+    </span>
+  </div>
+
+<script>
+
+</script>
+
+</body>
+</html>

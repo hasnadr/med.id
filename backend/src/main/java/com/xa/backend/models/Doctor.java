@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "doctor")
+@Table(name = "m_doctor")
 public class Doctor {
     @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

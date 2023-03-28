@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "kategori_faskes")
+@Table(name = "m_medical_facility_category")
 public class KategoriFaskes {
     
     

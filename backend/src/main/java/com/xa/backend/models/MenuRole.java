@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "menu_role")
+@Table(name = "m_menu_role")
 public class MenuRole {
     
     @javax.persistence.Id
