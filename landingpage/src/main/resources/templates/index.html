@@ -21,30 +21,30 @@
 
     loadMainMenu()
     function loadMainMenu() {
-    $.ajax({
-      url:'http://localhost:5000/menu/' + getLastValue(),
-      type:'GET',
-      contentType:'application/json',
-      success:function(menu) {
-        console.log(menu)
-        var str = '';
-        for(i = 0; i < menu.length; i++) {
-          str += `
-          <div class="" style="">
-          <li class="nav-item">
-          <button value="${menu[i].id}" onclick="loadSubMenu(this.value)" class="nav-link active btn" aria-current="page" back style="background-color: transparent; color:rgb(44, 156, 219); font-weight: 600;">
-            <svg class="bi me-2" width="16" height="16"><use xlink:href=""/></svg>
-            ${menu[i].name}
-          </button>
-          </li>
-          </div>
-          `;
+        $.ajax({
+        url:'http://localhost:5000/menu/' + getLastValue(),
+        type:'GET',
+        contentType:'application/json',
+        success:function(menu) {
+            console.log(menu)
+            var str = '';
+            for(i = 0; i < menu.length; i++) {
+            str += `
+            <div class="" style="">
+            <li class="nav-item">
+            <button value="${menu[i].id}" onclick="loadSubMenu(this.value)" class="nav-link active btn" aria-current="page" back style="background-color: transparent; color:rgb(44, 156, 219); font-weight: 600;">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href=""/></svg>
+                ${menu[i].name}
+            </button>
+            </li>
+            </div>
+            `;
+            }
+            console.log(str)
+            $('#showMenu').html(str)
         }
-        console.log(str)
-        $('#showMenu').html(str)
-      }
-    })
-  }
+        })
+    }
     function loadSubMenu(id) {
         $.ajax({
             url:'http://localhost:5000/menu/' + getLastValue() + '/' + id,
@@ -62,7 +62,7 @@
                                 str += `<img src = "/images/doctor.png">`
                             } else {
                                 // str+= `<a onclick="${submenu[i].id}()" class="nav-link active" aria-current="page" back style="color:rgb(44, 156, 219); font-weight: normal;">`
-                                str+= `<button value="${submenu[i].id}" onclick="showPage(this.value)" class="" aria-current="page" back style="background-color:transparent; border-width:0;" >`
+                                str+= `<button value="${submenu[i].id}" onclick="showPage${submenu[i].id}()" class="" aria-current="page" back style="background-color:transparent; border-width:0;" >`
                                 str+= '<figure>'
                                 str+= `<img src = "/images/${submenu[i].big_icon}" style="height:65px;">`
                                 str+= `<a style="color:rgb(44, 156, 219); font-weight: normal;"><figcaption class="" style="">${submenu[i].name}</figcaption></a>`
@@ -126,7 +126,7 @@
         })
        }
 
-       function showPage() {
+       function showPage38() {
             $('#mymodal').modal('show');
             $('.modal-title').html('Cari Dokter');
             $('.modal-body').html();
@@ -180,6 +180,18 @@
             }
 
 		}
+
+        function showPage8() {
+            $.ajax({
+                url: 'http://localhost:8086/home/customer-relation',
+				type: 'GET',
+				contentType: 'application/json',
+				success: function (result) {
+                    console.log(result)
+                    window.open('http://localhost:8086/home/customer-relation', '_self')
+				}
+			})
+        }
        
     </script>
 </div>

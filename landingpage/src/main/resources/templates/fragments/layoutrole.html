@@ -75,15 +75,16 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
             <table class="table">
                 <tr>
                     <td colspan="2"><small style="color:grey;">Nama</small>
-                      <span style="color: red; font-size: 10pt;" id="spValidation">*)</span>
+                      <span style="color: red; font-size: 10pt;" id="">*)</span>
                       <input class="form-control" id="namaRelasi" type="text" maxlength="30" size="40" ></td>
+                      <a style="color: red; font-size: 10pt;" id="validation"></a>
                 </tr>
                 <tr>
                     <td align="right">
                         <button class="btn btn-danger" data-bs-dismiss="modal" style="width: 130px;">Batal</button>    
                     </td>
                     <td align="left">
-                        <button class="btn btn-primary" value="" onclick="saveRelation()" style="width: 130px;">Simpan</button>    
+                        <button class="btn btn-primary" value="" onclick="validateAdd()" style="width: 130px;">Simpan</button>    
                     </td>
                 </tr>
             </table>
@@ -176,8 +177,6 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
             <button class="btn btn-primary btn-sm" type="button" id="showName" onclick="userProfile()" style="width: 250px; margin: 10px; color: white; background-color: rgb(44, 156, 219); float: right;"></button>
             
           </form>
-        </ul>
-        
       </div>
 
     </div>
@@ -212,7 +211,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
   <div id="page-content-wrapper">
     <div id="container-fluid">
           <a href="#" class="btn" id="menu-toggle" style="float: left;"><i class="fa fa-bars"></i></a>
-          <div id="content">
+          <div id="content" style="max-height: 400px; overflow-y: scroll;">
             <span class="align-middle">
               <section layout:fragment="content" style="padding:2rem;" id="baseContent"></section>
             </span>
@@ -223,7 +222,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 
 <!-- Footer -->
-<footer class="footer mt-auto py-3" style="position: absolute; bottom: 0; width: 100%; height: 140px; background-color:rgb(135, 219, 247);">
+<footer class="footer mt-auto py-3" style="position: absolute; bottom: 0; width: 100%; height: 140px; background-color:rgb(135, 219, 247); display: flex; flex-direction: column;">
   <div class="container text-muted">
     <div class="row" style="padding-left: 100px; font-size: small;">
       <div class="col">

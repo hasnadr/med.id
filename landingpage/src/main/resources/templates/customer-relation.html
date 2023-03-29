@@ -50,142 +50,249 @@
 
 <script>
 
-loadRelation()
-function loadRelation() {
-    $.ajax({
-            url:'http://localhost:5000/getrelation',
-            type:'GET',
-            contentType:'application/json',
-            success:function(relation) {
-                var str = '';
-                var number = 1;
-                console.log(relation)
-                    for(i=0; i<relation.length; i++) {
-                        str += '<tr>';
-                        str += '<td>' + number + '. </td>';
-                        str += '<td>' + relation[i].name + '</td>';
-                        str += '<td></td>';
-                        str += '<td></td>';
-                        str += '<td></td>';
-                        str += '<td></td>';
-                        str += '<td></td>';
-                        str += '<td></td>';
-                        str += `<td>
-                            <button value="${relation[i].id}" onclick="editRelationModal(this.value)" class="btn btn-warning">
-                                <i class="fa fa-pencil"></i>
-                            </button>
-                            <button value="${relation[i].id}" onclick="deleteRelationModal(this.value)" class="btn btn-danger">
-                                <i class="fa fa-trash"></i>
-                            </button>
-                            </td>`;
-                        str += '</tr>';
-                        number++;
-                    }
-                    $('#relationData').html(str);
-                    // $('#relationDataTable').html(str);
-                }
-        })
-}
-
-function searchResult(name) {
-    $.ajax({
-    url:'http://localhost:5000/getrelation/' + name,
-    type:'GET',
-    contentType:'application/json',
-    success:function(data) {
-        console.log(data)
-        str = ''
-        number = 1
-        for(i=0; i < data.length; i++) {
-            str += '<tr>';
-            str += '<td>' + number + '. </td>';
-            str += '<td>' + data[i].name + '</td>';
-            str += '</tr>';
-            number++
-        }
-        $('#relationData').html(str)
-    }
-})
-}
-
-function addRelationModal() {
-    $('#addrelation').modal('show');
-            $('.modal-title').html('Tambah');
-            $('.modal-body').html();
-
-}
-
-function saveRelation() {
-const relationData = {
-    name : $('#namaRelasi').val()
-}
-
-$.ajax({
-    url:'http://localhost:5000/saverelation',
-    type:'POST',
-    dataType:'json',
-    data:JSON.stringify(relationData),
-    contentType:'application/json',
-    success:function(relation) {
-        $('#addrelation').modal('hide')
-        loadRelation()
-    }
-})
-}
-
-function editRelationModal(id) {
-    $.ajax({
-            url:'http://localhost:5000/getrelation/' + id,
-            type:'GET',
-            contentType:'application/json',
-            success:function(relation) {
-                console.log(relation);
-                str = `
-                <table class="table">
-                <tr>
-                    <td colspan="2"><small style="color:grey;">Nama</small>
-                      <span style="color: red; font-size: 10pt;" id="spValidation"></span>
-                      <input class="form-control" id="ubahNamaRelasi" type="text" value="${relation[0].name}" maxlength="30" size="40" ></td>
-                </tr>
-                <tr>
-                    <td align="right">
-                        <button class="btn btn-danger" data-bs-dismiss="modal" style="width: 130px;">Batal</button>    
-                    </td>
-                    <td align="left">
-                        <button class="btn btn-primary" value="${relation[0].id}" onclick="editRelation(this.value)" style="width: 130px;">Simpan</button>    
-                    </td>
-                </tr>
-                </table>
-                `;
-            console.log(str)
-            $('#editrelation').modal('show');
-            $('.modal-title').html('Ubah');
-            $('.modal-body').html(str);
+    loadMainMenu()
+    function loadMainMenu() {
+        $.ajax({
+        url:'http://localhost:5000/menu/1',
+        type:'GET',
+        contentType:'application/json',
+        success:function(menu) {
+            console.log(menu)
+            var str = '';
+            for(i = 0; i < menu.length; i++) {
+            str += `
+            <div class="" style="">
+            <li class="nav-item">
+            <button value="${menu[i].id}" onclick="loadSubMenu(this.value)" class="nav-link active btn" aria-current="page" back style="background-color: transparent; color:rgb(44, 156, 219); font-weight: 600;">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href=""/></svg>
+                ${menu[i].name}
+            </button>
+            </li>
+            </div>
+            `;
             }
-    })
-
-}
-
-function editRelation(id) {
-    const relationData = {
-    name : $('#ubahNamaRelasi').val()
+            console.log(str)
+            $('#showMenu').html(str)
+        }
+        })
     }
-    console.log(relationData)
+
+    function loadSubMenu(id) {
+        $.ajax({
+            url:'http://localhost:5000/menu/1/' + id,
+            type:'GET',
+            contentType:'application/json',
+            success:function(submenu) {
+                console.log(submenu)
+                var str = '';
+                str += '<div class="container">';
+                str += '<div class="row">';
+                    for(i = 0; i < submenu.length; i++) {
+                        str += '<div class="col-sm-2 text-center">'
+                            // str += '<div class = "card" style = "width: 7rem;">'
+                            if(submenu[i].big_icon == null) {
+                                str += `<img src = "/images/doctor.png">`
+                            } else {
+                                // str+= `<a onclick="${submenu[i].id}()" class="nav-link active" aria-current="page" back style="color:rgb(44, 156, 219); font-weight: normal;">`
+                                str+= `<button value="${submenu[i].id}" onclick="showPage${submenu[i].id}()" class="" aria-current="page" back style="background-color:transparent; border-width:0;" >`
+                                str+= '<figure>'
+                                str+= `<img src = "/images/${submenu[i].big_icon}" style="height:65px;">`
+                                str+= `<a style="color:rgb(44, 156, 219); font-weight: normal;"><figcaption class="" style="">${submenu[i].name}</figcaption></a>`
+                                str+= '</figure>'
+                                str+= `</button>`
+                            }
+                            str += '<br>'
+                            // str+= '<div class = "card body">'
+                        str += '</div>'
+
+                    }
+                str += '</div>';
+                str += '</div>';
+                // $('#menuData').html(str)
+                $('#relationDataTable').html(str)
+            }
+        })
+       }
+
+    loadName()
+    function loadName() {
+        $.ajax({
+          url:'http://localhost:5000/user/1',
+          type:'GET',
+          contentType:'application/json',
+          success:function(name) {
+            console.log(name)
+            var str = '';
+            for(i = 0; i < name.length; i++) {
+              str += `
+              <div class="" style="color:white; font-weight: 500;">
+              Halo, ${name[i].fullname}!
+              </div>
+              `;
+            }
+            console.log(str)
+            $('#showName').html(str)
+          }
+        })
+    }
+
+    loadRelation()
+    function loadRelation() {
+        $.ajax({
+                url:'http://localhost:5000/getrelation',
+                type:'GET',
+                contentType:'application/json',
+                success:function(relation) {
+                    var str = '';
+                    var number = 1;
+                    console.log(relation)
+                        for(i=0; i<relation.length; i++) {
+                            str += '<tr>';
+                            str += '<td>' + number + '. </td>';
+                            str += '<td>' + relation[i].name + '</td>';
+                            str += '<td></td>';
+                            str += '<td></td>';
+                            str += '<td></td>';
+                            str += '<td></td>';
+                            str += '<td></td>';
+                            str += '<td></td>';
+                            str += `<td>
+                                <button value="${relation[i].id}" onclick="editRelationModal(this.value)" class="btn btn-warning">
+                                    <i class="fa fa-pencil"></i>
+                                </button>
+                                <button value="${relation[i].id}" onclick="deleteRelationModal(this.value)" class="btn btn-danger">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                                </td>`;
+                            str += '</tr>';
+                            number++;
+                        }
+                        $('#relationData').html(str);
+                        // $('#relationDataTable').html(str);
+                    }
+            })
+    }
+
+    function searchResult(name) {
+        $.ajax({
+        url:'http://localhost:5000/getrelation/' + name,
+        type:'GET',
+        contentType:'application/json',
+        success:function(data) {
+            console.log(data)
+            str = ''
+            number = 1
+            for(i=0; i < data.length; i++) {
+                str += '<tr>';
+                str += '<td>' + number + '. </td>';
+                str += '<td>' + data[i].name + '</td>';
+                str += '</tr>';
+                number++
+            }
+            $('#relationData').html(str)
+        }
+    })
+    }
+
+    function addRelationModal() {
+        $('#addrelation').modal('show');
+                $('.modal-title').html('Tambah');
+                $('.modal-body').html();
+
+    }
+
+    function validateAdd() {
+        var name = $('#namaRelasi').val()
+        if(name.length == 0) {
+            $('#validation').html('*Nama harus diisi')
+        } else {
+            saveRelation()
+        }
+        
+    }
+
+    function saveRelation() {
+    const relationData = {
+        name : $('#namaRelasi').val()
+    }
 
     $.ajax({
-        // url:'http://localhost:5000/editrelation/' + id + '/' + $('#ubahNamaRelasi').val(),
-        url:'http://localhost:5000/ubahrelasi/' + id,
-        type:'PUT',
+        url:'http://localhost:5000/saverelation',
+        type:'POST',
         dataType:'json',
         data:JSON.stringify(relationData),
         contentType:'application/json',
         success:function(relation) {
-            console.log(relation);
-            $('#editrelation').modal('hide')
-            loadRelation();
+            $('#addrelation').modal('hide')
+            loadRelation()
         }
     })
-}
+    }
+
+    function editRelationModal(id) {
+        $.ajax({
+                url:'http://localhost:5000/relationbyid/' + id,
+                type:'GET',
+                contentType:'application/json',
+                success:function(relation) {
+                    console.log(relation);
+                    str = `
+                    <table class="table">
+                    <tr>
+                        <td colspan="2"><small style="color:grey;">Nama</small>
+                        <span style="color: red; font-size: 10pt;" id="">*)</span>
+                        <input class="form-control" id="ubahNamaRelasi" type="text" value="${relation[0].name}" maxlength="30" size="40"></td>
+                        <span style="color: red; font-size: 10pt;" id="validation"></span>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            <button class="btn btn-danger" data-bs-dismiss="modal" style="width: 130px;">Batal</button>    
+                        </td>
+                        <td align="left">
+                            <button class="btn btn-primary" value="${relation[0].id}" onclick="validateEdit(this.value)" style="width: 130px;">Simpan</button>    
+                        </td>
+                    </tr>
+                    </table>
+                    `;
+                console.log(str)
+                $('#editrelation').modal('show');
+                $('.modal-title').html('Ubah');
+                $('.modal-body').html(str);
+                }
+        })
+
+    }
+
+    function validateEdit(id) {
+        var name = $('#ubahNamaRelasi').val()
+        if(name.length == 0) {
+            $('#validation').html('*Nama harus diisi')
+        } else {
+            editRelation(id)
+        }
+        
+    }
+
+    function editRelation(id) {
+        const relationData = {
+        name : $('#ubahNamaRelasi').val()
+        }
+        console.log(relationData)
+
+        $.ajax({
+            // url:'http://localhost:5000/editrelation/' + id + '/' + $('#ubahNamaRelasi').val(),
+            url:'http://localhost:5000/ubahrelasi/' + id,
+            type:'PUT',
+            dataType:'json',
+            data:JSON.stringify(relationData),
+            contentType:'application/json',
+            success:function(relation) {
+                console.log(relation);
+                $('#editrelation').modal('hide')
+                loadRelation();
+            }
+        })
+    }
 
         // function editRelationModal(id) {
         //     $.ajax({
