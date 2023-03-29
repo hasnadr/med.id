@@ -170,7 +170,7 @@ function showLocation() {
             type:'GET',
             contentType:'application/json',
             success:function(location) {
-                var str = '<option selected value="" style="color: grey;" >--Pilih--</option>';
+                var str = '<option selected value="-" style="color: grey;" >--Pilih--</option>';
                     for(i=0; i<location.length; i++) {
                         str += '<option value="'+location[i].name+'">'+location[i].name+'</option>'
                     }
@@ -185,7 +185,7 @@ function showLocation() {
             type:'GET',
             contentType:'application/json',
             success:function(sp) {
-                var str = '<option selected value="" style="color: grey;" >--Pilih--</option>';
+                var str = '<option selected value="-" style="color: grey;" >--Pilih--</option>';
                     for(i=0; i<sp.length; i++) {
                         str += '<option value="'+sp[i].name+'">'+sp[i].name+'</option>'
                     }
@@ -200,7 +200,7 @@ function showLocation() {
             type:'GET',
             contentType:'application/json',
             success:function(tindakan) {
-                var str = '<option selected value="" style="color: grey;" >--Pilih--</option>';
+                var str = '<option selected value="-" style="color: grey;" >--Pilih--</option>';
                     for(i=0; i<tindakan.length; i++) {
                         str += '<option value="'+tindakan[i].name+'">'+tindakan[i].name+'</option>'
                     }
@@ -212,7 +212,7 @@ function showLocation() {
             // const searchData = {
             //     spData : $('#spData').val()
             // }
-            if($('#spId').val() == "") {
+            if($('#spId').val() == "-") {
                 $('#spValidation').html("Pilihan Spesialisasi harus diisi")
             } else {
                 var location = $('#locationId').val()
@@ -224,11 +224,6 @@ function showLocation() {
                 console.log(dokter)
                 console.log(sp)
                 console.log(tindakan)
-
-                if(location = "") location = "_";
-                if(dokter = "") dokter = "_";
-                if(sp = "") sp = "_";
-                if(tindakan = "") tindakan = "_";
 
                 $.ajax({
 				// url: 'http://localhost:5000/search/' + location + '/' + dokter + '/' + sp + '/' + tindakan,
@@ -284,14 +279,14 @@ console.log(params)
 
 loadResult()
 function loadResult() {
+    let str = ''
     $.ajax({
+    //url/lokasi/dokter/sp/tindakan
     url:'http://localhost:5000/search2/' + params[5] + '/' + params[6] + '/' + params[7] + '/' + params[8],
     type:'GET',
-    async:true,
     contentType:'application/json',
     success:function(data) {
         console.log(data)
-        var str = ''
         for(i=0; i < data.length; i++) {
             str += `
             <div class="col-6">
@@ -315,15 +310,13 @@ function loadResult() {
                                 $.ajax({
                                     url:'http://localhost:5000/search2/' + data[i].nama_dokter,
                                     type:'GET',
-                                    async:true,
                                     contentType:'application/json',
+                                    async: false,
                                     success: function(faskes) {
                                         console.log(faskes)
-                                        var str2 = ''
-                                        for(i=0; i<faskes.length; i++) {
-                                            str2 += faskes[i].fasilitas_kesehatan + ', ('+faskes[i].lokasi+')<br>'
+                                        for(j=0; j<faskes.length; j++) {
+                                            str += faskes[j].fasilitas_kesehatan + ', ('+faskes[j].lokasi+')<br>'
                                         }
-                                        $('#faskes').html(str2)
                                     }
                                 })
                                 str +=    `</td>

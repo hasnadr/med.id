@@ -21,28 +21,31 @@ import com.xa.backend.models.CustomerRelation;
 import com.xa.backend.repositories.CustomerRelationRepository;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping(value = "/")
 @CrossOrigin("*")
 public class CustomerRelationController {
     
     @Autowired private CustomerRelationRepository customerRelationRepo;
 
+    // untuk show all data
     @GetMapping("/getrelation")
     public ResponseEntity<List<Map<String, Object>>> getAllRelation() {
         try {
-            List<Map<String, Object>> sp = this.customerRelationRepo.getAllRelation();
-            return new ResponseEntity<List<Map<String, Object>>>(sp, HttpStatus.OK);   
+            List<Map<String, Object>> relation = this.customerRelationRepo.getAllRelation();
+            return new ResponseEntity<List<Map<String, Object>>>(relation, HttpStatus.OK);   
         } catch(Exception e) {
             e.printStackTrace();
             return new ResponseEntity<List<Map<String, Object>>>(HttpStatus.NO_CONTENT);
         }
     }
 
+    // untuk save data
     @PostMapping("/saverelation")
     public ResponseEntity<CustomerRelation> insertRelation(@RequestBody CustomerRelation relation) {
         try {
             Timestamp timestamp = new Timestamp(System.currentTimeMillis());
             relation.setCreatedOn(timestamp);
+            relation.setDeleted(false);
             this.customerRelationRepo.save(relation);
             return new ResponseEntity<CustomerRelation>(relation, HttpStatus.OK);
         } catch (Exception e) {
@@ -51,8 +54,37 @@ public class CustomerRelationController {
         }
     }
 
-    @PutMapping("/editrelation/{id}")
-    public ResponseEntity<CustomerRelation> edititemCategory(
+    //untuk search data by name
+    @GetMapping("/relationbyname/{name}")
+    public ResponseEntity<List<Map<String, Object>>> getRelationByName(
+        @PathVariable("name") String name
+    ) {
+        try {
+            List<Map<String, Object>> relation = this.customerRelationRepo.getRelationByName(name);
+            return new ResponseEntity<List<Map<String, Object>>>(relation, HttpStatus.OK);   
+        } catch(Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<List<Map<String, Object>>>(HttpStatus.NO_CONTENT);
+        }
+    }
+
+    //untuk show data by id
+    @GetMapping("/relationbyid/{id}")
+    public ResponseEntity<List<Map<String, Object>>> getRelationById(
+        @PathVariable("id") Long id
+    ) {
+        try {
+            List<Map<String, Object>> relation = this.customerRelationRepo.getRelationById(id);
+            return new ResponseEntity<List<Map<String, Object>>>(relation, HttpStatus.OK);   
+        } catch(Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<List<Map<String, Object>>>(HttpStatus.NO_CONTENT);
+        }
+    }
+
+    //untuk edit data
+    @PutMapping("/ubahrelasi/{id}")
+    public ResponseEntity<CustomerRelation> editRelation(
             @RequestBody CustomerRelation relation,
             @PathVariable("id") Long id) {
         try {
@@ -61,7 +93,7 @@ public class CustomerRelationController {
             _relation.setModifiedBy(Long.parseLong("1"));
             _relation.setName(relation.getName());
             this.customerRelationRepo.save(_relation);
-            return new ResponseEntity<CustomerRelation>(relation, HttpStatus.OK);
+            return new ResponseEntity<CustomerRelation>(_relation, HttpStatus.OK);
         } catch (Exception e) {
             e.printStackTrace();
             return new ResponseEntity<CustomerRelation>(HttpStatus.NO_CONTENT);
@@ -69,8 +101,9 @@ public class CustomerRelationController {
         }
     }
 
-    @DeleteMapping("/deleterelation/{id}")
-    public ResponseEntity<?> deleteitemcategory(@PathVariable("id") Long id) {
+    //untuk delete data
+    @DeleteMapping("/hapusrelasi/{id}")
+    public ResponseEntity<?> deleteRelation(@PathVariable("id") Long id) {
         try {
             CustomerRelation relation = this.customerRelationRepo.findById(id).orElse(null);
             if (relation != null) {
@@ -88,19 +121,6 @@ public class CustomerRelationController {
         } catch (Exception e) {
             return new ResponseEntity<CustomerRelation>(HttpStatus.NO_CONTENT);
 
-        }
-    }
-
-    @GetMapping("/relation/{name}")
-    public ResponseEntity<List<Map<String, Object>>> searchRelation(
-        @PathVariable("name") String name
-    ) {
-        try {
-            List<Map<String, Object>> relation = this.customerRelationRepo.searchRelation(name);
-            return new ResponseEntity<List<Map<String, Object>>>(relation, HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<List<Map<String, Object>>>(HttpStatus.NO_CONTENT);
         }
     }
 
