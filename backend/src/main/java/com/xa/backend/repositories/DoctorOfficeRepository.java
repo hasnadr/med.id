@@ -47,5 +47,22 @@ public interface DoctorOfficeRepository extends JpaRepository<DoctorOffice, Long
     List<Map<String, Object>> getSearchResult(String lokasi, String dokter, String sp, String tindakan);
     // List<Map<String, Object>> getSearchResult(Long spId);
 
+    @Query(value = "SELECT nama_dokter, spesialisasi, pengalaman " +
+                    "FROM dokter_faskes " +
+                    "WHERE lokasi ILIKE %?1% OR " +
+                    "nama_dokter ILIKE %?2% OR " +
+                    "spesialisasi ILIKE %?3% OR " +
+                    "tindakan_medis ILIKE %?4% " +
+                    "group by nama_dokter, spesialisasi, pengalaman"
+                    , nativeQuery = true)
+    List<Map<String, Object>> getResult(String lokasi, String dokter, String sp, String tindakan);
+
+    @Query(value = "SELECT lokasi, fasilitas_kesehatan " +
+                   "FROM dokter_faskes " +
+                   "WHERE nama_dokter ILIKE %?1%"
+                    , nativeQuery = true)
+    List<Map<String, Object>> getFaskes(String dokter);
+
+
 
 }

@@ -170,7 +170,7 @@ function showLocation() {
             type:'GET',
             contentType:'application/json',
             success:function(location) {
-                    var str='<option value="_" selected ></option>';
+                var str = '<option selected value="" style="color: grey;" >--Pilih--</option>';
                     for(i=0; i<location.length; i++) {
                         str += '<option value="'+location[i].name+'">'+location[i].name+'</option>'
                     }
@@ -200,7 +200,7 @@ function showLocation() {
             type:'GET',
             contentType:'application/json',
             success:function(tindakan) {
-                var str = '<option value="_" selected ></option>';
+                var str = '<option selected value="" style="color: grey;" >--Pilih--</option>';
                     for(i=0; i<tindakan.length; i++) {
                         str += '<option value="'+tindakan[i].name+'">'+tindakan[i].name+'</option>'
                     }
@@ -285,12 +285,13 @@ console.log(params)
 loadResult()
 function loadResult() {
     $.ajax({
-    url:'http://localhost:5000/search/' + params[5] + '/' + params[6] + '/' + params[7] + '/' + params[8],
+    url:'http://localhost:5000/search2/' + params[5] + '/' + params[6] + '/' + params[7] + '/' + params[8],
     type:'GET',
+    async:true,
     contentType:'application/json',
     success:function(data) {
         console.log(data)
-        str = ''
+        var str = ''
         for(i=0; i < data.length; i++) {
             str += `
             <div class="col-6">
@@ -308,18 +309,25 @@ function loadResult() {
 								<tr>
 									<td style="font-size: 9pt; padding-left: 10px; padding-bottom: 10px;">${data[i].pengalaman} Tahun Pengalaman</td>
 								</tr>
-								<tr>
-									<td style="font-size: 10pt; padding-left: 11px;">
-                                        <img src="/images/building.png" width="15px" height="auto">
-                                        ${data[i].fasilitas_kesehatan}, (${data[i].lokasi})
-                                    </td>
-								</tr>
-								<tr>
-									<td style="font-size: 10pt; padding-left: 11px;">
-                                        <img src="/images/building.png" width="15px" height="auto">
-                                        ${data[i].fasilitas_kesehatan}, (${data[i].lokasi})
-                                    </td>
-								</tr>
+                                <tr>
+                                    <td id="faskes">`
+                                
+                                $.ajax({
+                                    url:'http://localhost:5000/search2/' + data[i].nama_dokter,
+                                    type:'GET',
+                                    async:true,
+                                    contentType:'application/json',
+                                    success: function(faskes) {
+                                        console.log(faskes)
+                                        var str2 = ''
+                                        for(i=0; i<faskes.length; i++) {
+                                            str2 += faskes[i].fasilitas_kesehatan + ', ('+faskes[i].lokasi+')<br>'
+                                        }
+                                        $('#faskes').html(str2)
+                                    }
+                                })
+                                str +=    `</td>
+                                </tr>
                                 <tr>
 									<td>
                                         <button class="btn btn-outline-primary btn-sm btn-block" style="margin: 14px; width: 330px;">
@@ -333,7 +341,7 @@ function loadResult() {
 							<table>
 								<tr>
 									<td style="padding: 11px;">
-                                        <img class="img-responsive pdoctor" src="/images/profil.png" width="80" height="auto">
+                                        <img class="img-responsive pdoctor" src="/images/profil_${data[i].nama_dokter}.png" width="80" height="auto">
                                     </td>
 								</tr>
                                 <tr>
@@ -353,10 +361,12 @@ function loadResult() {
 				</div>
             `;
         }
+
         console.log(str)
         $('#resultData').html(str)
         $('#searchKey').html(params[5].replaceAll('%20', ' ') + ', ' + params[6].replaceAll('%20', ' ') + ', ' + params[8].replaceAll('%20', ' '))
         $('#searchKeySp').html(params[7].replaceAll('%20', ' '))
+
     }
 })
 }

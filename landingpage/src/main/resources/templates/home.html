@@ -58,7 +58,7 @@
             type:'GET',
             contentType:'application/json',
             success:function(location) {
-                var str='<option value="_" selected ></option>';
+                var str = '<option selected value="" style="color: grey;" >--Pilih--</option>';
                     for(i=0; i<location.length; i++) {
                         str += '<option value="'+location[i].name+'">'+location[i].name+'</option>'
                     }
@@ -88,7 +88,7 @@
             type:'GET',
             contentType:'application/json',
             success:function(tindakan) {
-                var str = '<option value="_" selected ></option>';
+                var str = '<option selected value="" style="color: grey;" >--Pilih--</option>';
                     for(i=0; i<tindakan.length; i++) {
                         str += '<option value="'+tindakan[i].name+'">'+tindakan[i].name+'</option>'
                     }

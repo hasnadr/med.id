@@ -75,4 +75,10 @@ public class LandingPageController {
         return view;
     }
 
+    @GetMapping("/customer-relation")
+    public ModelAndView customerSearch() {
+        ModelAndView view = new ModelAndView("/customer-relation");
+        return view;
+    }
+
 }

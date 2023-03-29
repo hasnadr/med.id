@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{fragments/layoutrole}">
+<head>
+    <title>Customer-Relation</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <!-- <div>
+            <div class="row" id="menuData"></div>
+    </div> -->
+
+    <nav class="navbar navbar-light" style="background-color: rgb(219, 244, 251);">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1" style="font-size: medium; font-weight: bold; color: grey; font-family: Arial;">HUBUNGAN PASIEN</span>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <!-- search -->
+            <div class="d-flex justify-content-between mt-3">
+                <input class="form-control" type="search" placeholder="Search by name" aria-label="Search" id="searchrelation" oninput="searchResult(this.value)">
+                <button class="btn btn-primary" style="margin-left:2rem;" onclick="addRelationModal()">Tambah</button>
+            </div>
+            <!-- table -->
+            <div class="table-responsive mt-4">
+            	<table class="table align-middle" id="relationDataTable">
+	                <thead class="table-info">
+                        <th></th>
+	                    <th>NAMA</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+	                    <th>Action</th>
+	                </thead>
+	                <tbody id="relationData">
+		                
+	                </tbody>
+            	</table>
+            </div>
+          </div>
+        </div>
+    </div>
+
+<script>
+
+loadRelation()
+function loadRelation() {
+    $.ajax({
+            url:'http://localhost:5000/getrelation',
+            type:'GET',
+            contentType:'application/json',
+            success:function(relation) {
+                var str = '';
+                var number = 1;
+                console.log(relation)
+                    for(i=0; i<relation.length; i++) {
+                        str += '<tr>';
+                        str += '<td>' + number + '. </td>';
+                        str += '<td>' + relation[i].name + '</td>';
+                        str += '<td></td>';
+                        str += '<td></td>';
+                        str += '<td></td>';
+                        str += '<td></td>';
+                        str += '<td></td>';
+                        str += '<td></td>';
+                        str += `<td>
+                            <button value="${relation[i].id}" onclick="editRelationModal(this.value)" class="btn btn-warning">
+                                <i class="fa fa-pencil"></i>
+                            </button>
+                            <button value="${relation[i].id}" onclick="deleteData(this.value)" class="btn btn-danger">
+                                <i class="fa fa-trash"></i>
+                            </button>
+                            </td>`;
+                        str += '</tr>';
+                        number++;
+                    }
+                    $('#relationData').html(str);
+                    // $('#relationDataTable').html(str);
+                }
+        })
+}
+
+function searchResult(name) {
+    $.ajax({
+    url:'http://localhost:5000/relation/' + name,
+    type:'GET',
+    contentType:'application/json',
+    success:function(data) {
+        console.log(data)
+        str = ''
+        number = 1
+        for(i=0; i < data.length; i++) {
+            str += '<tr>';
+            str += '<td>' + number + '. </td>';
+            str += '<td>' + data[i].name + '</td>';
+            str += '</tr>';
+            number++
+        }
+        $('#relationData').html(str)
+    }
+})
+}
+
+function addRelationModal() {
+    $('#addrelation').modal('show');
+            $('.modal-title').html('Tambah');
+            $('.modal-body').html();
+
+}
+
+function saveRelation() {
+const relationData = {
+    name : $('#namaRelasi').val()
+}
+
+$.ajax({
+    url:'http://localhost:5000/saverelation',
+    type:'POST',
+    dataType:'json',
+    data:JSON.stringify(relationData),
+    contentType:'application/json',
+    success:function(relation) {
+        $('#addrelation').modal('hide')
+        loadRelation()
+    }
+})
+}
+
+function editRelationModal() {
+    $('#editrelation').modal('show');
+            $('.modal-title').html('Ubah');
+            $('.modal-body').html();
+
+}
+
+function editData(id) {
+    $.ajax({
+    url:'http://localhost:5000/editrelation/' + id,
+    type:'PUT',
+    contentType:'application/json',
+    success:function(data) {
+        console.log(data)
+        str = ''
+        number = 1
+        for(i=0; i < data.length; i++) {
+            str += '<tr>';
+            str += '<td>' + number + '. </td>';
+            str += '<td>' + data[i].name + '</td>';
+            str += '</tr>';
+            number++
+        }
+        $('#relationData').html(str)
+    }
+})
+}
+
+function deleteData(id) {
+    $.ajax({
+    url:'http://localhost:5000/deleterelation/' + id,
+    type:'DELETE',
+    contentType:'application/json',
+    success:function(data) {
+        console.log(data)
+        str = ''
+        number = 1
+        for(i=0; i < data.length; i++) {
+            str += '<tr>';
+            str += '<td>' + number + '. </td>';
+            str += '<td>' + data[i].name + '</td>';
+            str += '</tr>';
+            number++
+        }
+        $('#relationData').html(str)
+    }
+})
+}
+
+</script>
+
+</div>
+
+</body>
+</html>

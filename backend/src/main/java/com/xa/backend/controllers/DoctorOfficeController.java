@@ -95,4 +95,34 @@ public class DoctorOfficeController {
     //     }
     // }
 
+    @GetMapping("/search2/{lokasi}/{dokter}/{sp}/{tindakan}")
+    public ResponseEntity<List<Map<String, Object>>> getResult(
+        @PathVariable("lokasi") String lokasi,
+        @PathVariable("dokter") String dokter,
+        @PathVariable("sp") String sp,
+        @PathVariable("tindakan") String tindakan
+    ) {
+        try {
+            List<Map<String, Object>> searchResult = this.officeRepo.getResult(lokasi, dokter, sp, tindakan);
+            return new ResponseEntity<List<Map<String, Object>>>(searchResult, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<List<Map<String, Object>>>(HttpStatus.NO_CONTENT);
+        }
+    }
+
+    @GetMapping("/search2/{dokter}")
+    public ResponseEntity<List<Map<String, Object>>> getFaskes(
+        @PathVariable("dokter") String dokter
+    ) {
+        try {
+            List<Map<String, Object>> searchResult = this.officeRepo.getFaskes(dokter);
+            return new ResponseEntity<List<Map<String, Object>>>(searchResult, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<List<Map<String, Object>>>(HttpStatus.NO_CONTENT);
+        }
+    }
+
+
 }

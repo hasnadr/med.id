@@ -6,13 +6,17 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
     <link rel="stylesheet" href="/css/bootstrap.min.css"></link>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous"></link>
     <link rel="stylesheet" href="/css/customrole.css"></link>
+    <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css"></link> -->
 
     <script src="/js/jquery-3.6.3.min.js"></script>
     <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/custom.js"></script>
+    <!-- <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script> -->
+
 </head>
 <body>
 
-<!-- Modal -->
+<!-- Modal Cari Dokter -->
 <div class="modal fade" id="mymodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
@@ -59,6 +63,97 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
     </div>
   </div>
 
+  <!-- Modal Tambah Relasi -->
+  <div class="modal fade" id="addrelation" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <table class="table">
+                <tr>
+                    <td colspan="2"><small style="color:grey;">Nama</small>
+                      <span style="color: red; font-size: 10pt;" id="spValidation">*)</span>
+                      <input class="form-control" id="namaRelasi" type="text" maxlength="30" size="40" ></td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        <button class="btn btn-danger" data-bs-dismiss="modal" style="width: 130px;">Batal</button>    
+                    </td>
+                    <td align="left">
+                        <button class="btn btn-primary" value="" onclick="saveRelation()" style="width: 130px;">Simpan</button>    
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Edit Relasi -->
+  <div class="modal fade" id="editrelation" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <table class="table">
+                <tr>
+                    <td colspan="2"><small style="color:grey;">Nama</small>
+                      <span style="color: red; font-size: 10pt;" id="spValidation">*)</span>
+                      <input class="form-control" id="namaRelasi" type="text" maxlength="30" size="40" ></td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        <button class="btn btn-danger" data-bs-dismiss="modal" style="width: 130px;">Batal</button>    
+                    </td>
+                    <td align="left">
+                        <button class="btn btn-primary" value="" onclick="editRelation()" style="width: 130px;">Simpan</button>    
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Modal Hapus Relasi -->
+  <div class="modal fade" id="deleterelation" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <table class="table">
+                <tr>
+                    <td colspan="2" style="color:grey;">Anda akan menghapus</td>
+                </tr>
+                <tr>
+                    <td align="right">
+                        <button class="btn btn-danger" data-bs-dismiss="modal" style="width: 130px;">Tidak</button>    
+                    </td>
+                    <td align="left">
+                        <button class="btn btn-primary" value="" onclick="deleteRelation()" style="width: 130px;">Ya</button>    
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Header -->
   <nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgb(219, 244, 251);">
     <div class="container-fluid">
@@ -89,7 +184,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
   </nav>
 
   <!-- Sidebar -->
-<div class="body" style="height:400px">
+<!-- <div class="body" style="height:400px">
     <div class="sidebar" style="width: 170px; background: rgb(135, 219, 247); 
   background: linear-gradient(180deg, rgba(219, 244, 251)0%, rgba(135, 219, 247)  100%); float: left; height: 99%;">
 
@@ -105,6 +200,25 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
         <section layout:fragment="content" style="padding:3rem;" id="baseContent"></section>
       </span>
     </div>
+</div> -->
+
+<!-- Sidebar -->
+<div id="wrapper" style="height:400px">
+  <div id="sidebar-wrapper">
+    <br>
+    <ul class="sidebar-nav" id="showMenu">
+    </ul>
+  </div>
+  <div id="page-content-wrapper">
+    <div id="container-fluid">
+          <a href="#" class="btn" id="menu-toggle" style="float: left;"><i class="fa fa-bars"></i></a>
+          <div id="content">
+            <span class="align-middle">
+              <section layout:fragment="content" style="padding:2rem;" id="baseContent"></section>
+            </span>
+          </div>
+    </div>
+  </div>
 </div>
 
 

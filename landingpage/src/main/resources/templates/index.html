@@ -32,7 +32,7 @@
           str += `
           <div class="" style="">
           <li class="nav-item">
-          <button value="${menu[i].id}" onclick="loadSubMenu(this.value)" class="nav-link active" aria-current="page" back style="background-color: transparent; color:rgb(44, 156, 219); font-weight: 600;">
+          <button value="${menu[i].id}" onclick="loadSubMenu(this.value)" class="nav-link active btn" aria-current="page" back style="background-color: transparent; color:rgb(44, 156, 219); font-weight: 600;">
             <svg class="bi me-2" width="16" height="16"><use xlink:href=""/></svg>
             ${menu[i].name}
           </button>
@@ -87,7 +87,7 @@
             type:'GET',
             contentType:'application/json',
             success:function(location) {
-                var str='<option value="_" selected ></option>';
+                var str = '<option selected value="" style="color: grey;" >--Pilih--</option>';
                     for(i=0; i<location.length; i++) {
                         str += '<option value="'+location[i].name+'">'+location[i].name+'</option>'
                     }
@@ -117,7 +117,7 @@
             type:'GET',
             contentType:'application/json',
             success:function(tindakan) {
-                var str = '<option value="_" selected ></option>';
+                var str = '<option selected value="" style="color: grey;" >--Pilih--</option>';
                     for(i=0; i<tindakan.length; i++) {
                         str += '<option value="'+tindakan[i].name+'">'+tindakan[i].name+'</option>'
                     }
