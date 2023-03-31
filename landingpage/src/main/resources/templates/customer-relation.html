@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{fragments/layoutrole}">
+<head>
+    <title>Customer-Relation</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <!-- <div>
+            <div class="row" id="menuData"></div>
+    </div> -->
+
+    <nav class="navbar navbar-light" style="background-color: rgb(219, 244, 251);">
+        <div class="container-fluid">
+            <span class="navbar-brand mb-0 h1" style="font-size: medium; font-weight: bold; color: grey; font-family: Arial;">HUBUNGAN PASIEN</span>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <!-- search -->
+            <div class="d-flex justify-content-between mt-3">
+                <input class="form-control" type="search" placeholder="Search by name" aria-label="Search" id="searchrelation" oninput="searchResult(this.value)">
+                <button class="btn btn-primary" style="margin-left:2rem;" onclick="addRelationModal()">Tambah</button>
+            </div>
+            <!-- table -->
+            <div class="table-responsive mt-4">
+            	<table class="table align-middle" id="relationDataTable">
+	                <thead class="table-info">
+                        <th></th>
+	                    <th>NAMA</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+	                    <th>Action</th>
+	                </thead>
+	                <tbody id="relationData">
+		                
+	                </tbody>
+            	</table>
+            </div>
+          </div>
+        </div>
+    </div>
+
+<script>
+
+    loadMainMenu()
+    function loadMainMenu() {
+        $.ajax({
+        url:'http://localhost:5000/menu/1',
+        type:'GET',
+        contentType:'application/json',
+        success:function(menu) {
+            console.log(menu)
+            var str = '';
+            for(i = 0; i < menu.length; i++) {
+            str += `
+            <div class="" style="">
+            <li class="nav-item">
+            <button value="${menu[i].id}" onclick="loadSubMenu(this.value)" class="nav-link active btn" aria-current="page" back style="background-color: transparent; color:rgb(44, 156, 219); font-weight: 600;">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href=""/></svg>
+                ${menu[i].name}
+            </button>
+            </li>
+            </div>
+            `;
+            }
+            console.log(str)
+            $('#showMenu').html(str)
+        }
+        })
+    }
+
+    function loadSubMenu(id) {
+        $.ajax({
+            url:'http://localhost:5000/menu/1/' + id,
+            type:'GET',
+            contentType:'application/json',
+            success:function(submenu) {
+                console.log(submenu)
+                var str = '';
+                str += '<div class="container">';
+                str += '<div class="row">';
+                    for(i = 0; i < submenu.length; i++) {
+                        str += '<div class="col-sm-2 text-center">'
+                            // str += '<div class = "card" style = "width: 7rem;">'
+                            if(submenu[i].big_icon == null) {
+                                str += `<img src = "/images/doctor.png">`
+                            } else {
+                                // str+= `<a onclick="${submenu[i].id}()" class="nav-link active" aria-current="page" back style="color:rgb(44, 156, 219); font-weight: normal;">`
+                                str+= `<button value="${submenu[i].id}" onclick="showPage${submenu[i].id}()" class="" aria-current="page" back style="background-color:transparent; border-width:0;" >`
+                                str+= '<figure>'
+                                str+= `<img src = "/images/${submenu[i].big_icon}" style="height:65px;">`
+                                str+= `<a style="color:rgb(44, 156, 219); font-weight: normal;"><figcaption class="" style="">${submenu[i].name}</figcaption></a>`
+                                str+= '</figure>'
+                                str+= `</button>`
+                            }
+                            str += '<br>'
+                            // str+= '<div class = "card body">'
+                        str += '</div>'
+
+                    }
+                str += '</div>';
+                str += '</div>';
+                // $('#menuData').html(str)
+                $('#relationDataTable').html(str)
+            }
+        })
+       }
+
+    loadName()
+    function loadName() {
+        $.ajax({
+          url:'http://localhost:5000/user/1',
+          type:'GET',
+          contentType:'application/json',
+          success:function(name) {
+            console.log(name)
+            var str = '';
+            for(i = 0; i < name.length; i++) {
+              str += `
+              <div class="" style="color:white; font-weight: 500;">
+              Halo, ${name[i].fullname}!
+              </div>
+              `;
+            }
+            console.log(str)
+            $('#showName').html(str)
+          }
+        })
+    }
+
+    loadRelation()
+    function loadRelation() {
+        $.ajax({
+                url:'http://localhost:5000/getrelation',
+                type:'GET',
+                contentType:'application/json',
+                success:function(relation) {
+                    var str = '';
+                    var number = 1;
+                    console.log(relation)
+                        for(i=0; i<relation.length; i++) {
+                            str += '<tr>';
+                            str += '<td>' + number + '. </td>';
+                            str += '<td>' + relation[i].name + '</td>';
+                            str += '<td></td>';
+                            str += '<td></td>';
+                            str += '<td></td>';
+                            str += '<td></td>';
+                            str += '<td></td>';
+                            str += '<td></td>';
+                            str += `<td>
+                                <button value="${relation[i].id}" onclick="editRelationModal(this.value)" class="btn btn-warning">
+                                    <i class="fa fa-pencil"></i>
+                                </button>
+                                <button value="${relation[i].id}" onclick="deleteRelationModal(this.value)" class="btn btn-danger">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                                </td>`;
+                            str += '</tr>';
+                            number++;
+                        }
+                        $('#relationData').html(str);
+                        // $('#relationDataTable').html(str);
+                    }
+            })
+    }
+
+    function searchResult(name) {
+        $.ajax({
+        url:'http://localhost:5000/getrelation/' + name,
+        type:'GET',
+        contentType:'application/json',
+        success:function(data) {
+            console.log(data)
+            str = ''
+            number = 1
+            for(i=0; i < data.length; i++) {
+                str += '<tr>';
+                str += '<td>' + number + '. </td>';
+                str += '<td>' + data[i].name + '</td>';
+                str += '</tr>';
+                number++
+            }
+            $('#relationData').html(str)
+        }
+    })
+    }
+
+    function addRelationModal() {
+        $('#addrelation').modal('show');
+                $('.modal-title').html('Tambah');
+                $('.modal-body').html();
+
+    }
+
+    function validateAdd() {
+        var name = $('#namaRelasi').val()
+        if(name.length == 0) {
+            $('#validation').html('*Nama harus diisi')
+        } else {
+            saveRelation()
+        }
+        
+    }
+
+    function saveRelation() {
+    const relationData = {
+        name : $('#namaRelasi').val()
+    }
+
+    $.ajax({
+        url:'http://localhost:5000/saverelation',
+        type:'POST',
+        dataType:'json',
+        data:JSON.stringify(relationData),
+        contentType:'application/json',
+        success:function(relation) {
+            $('#addrelation').modal('hide')
+            loadRelation()
+        }
+    })
+    }
+
+    function editRelationModal(id) {
+        $.ajax({
+                url:'http://localhost:5000/relationbyid/' + id,
+                type:'GET',
+                contentType:'application/json',
+                success:function(relation) {
+                    console.log(relation);
+                    str = `
+                    <table class="table">
+                    <tr>
+                        <td colspan="2"><small style="color:grey;">Nama</small>
+                        <span style="color: red; font-size: 10pt;" id="">*)</span>
+                        <input class="form-control" id="ubahNamaRelasi" type="text" value="${relation[0].name}" maxlength="30" size="40"></td>
+                        <span style="color: red; font-size: 10pt;" id="validation"></span>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            <button class="btn btn-danger" data-bs-dismiss="modal" style="width: 130px;">Batal</button>    
+                        </td>
+                        <td align="left">
+                            <button class="btn btn-primary" value="${relation[0].id}" onclick="validateEdit(this.value)" style="width: 130px;">Simpan</button>    
+                        </td>
+                    </tr>
+                    </table>
+                    `;
+                console.log(str)
+                $('#editrelation').modal('show');
+                $('.modal-title').html('Ubah');
+                $('.modal-body').html(str);
+                }
+        })
+
+    }
+
+    function validateEdit(id) {
+        var name = $('#ubahNamaRelasi').val()
+        if(name.length == 0) {
+            $('#validation').html('*Nama harus diisi')
+        } else {
+            editRelation(id)
+        }
+        
+    }
+
+    function editRelation(id) {
+        const relationData = {
+        name : $('#ubahNamaRelasi').val()
+        }
+        console.log(relationData)
+
+        $.ajax({
+            // url:'http://localhost:5000/editrelation/' + id + '/' + $('#ubahNamaRelasi').val(),
+            url:'http://localhost:5000/ubahrelasi/' + id,
+            type:'PUT',
+            dataType:'json',
+            data:JSON.stringify(relationData),
+            contentType:'application/json',
+            success:function(relation) {
+                console.log(relation);
+                $('#editrelation').modal('hide')
+                loadRelation();
+            }
+        })
+    }
+
+        // function editRelationModal(id) {
+        //     $.ajax({
+        //         url:'http://localhost:5000/getrelation/' + id,
+        //         type:'GET',
+        //         contentType:'application/json',
+        //         success:function(editSucces) {
+        //             console.log(editSucces.nama_relasi);
+
+        //             str = `
+        //             <table class="table">
+        //                 <tr>
+        //                     <td>Nama (*)</td>
+        //                 </tr>
+        //                 <tr>
+        //                     <td>
+        //                         <input id="editName" type="text" value="${editSucces.nama_relasi}" maxlength="30" size="30"></input>
+        //                     </td>
+        //                 </tr>
+        //                 <tr>
+        //                     <td align="right" colspan="2">
+        //                         <button class="btn btn-warning" data-bs-dismiss="modal">Batal</button>
+        //                         <button class="btn btn-primary" value="${editSucces.id}" onclick="saveEdit(this.value)">Simpan</button>
+        //                     </td>
+        //                 </tr>
+        //             </table>`
+        //             ;
+
+        //             $('#editrelationmodal').modal('show');
+        //             $('.modal-title').html('Edit');
+        //             $('.modal-body').html(str);
+        //         }
+        //     })
+        // }
+
+        // function saveEdit(editId) {
+        //     const editData = {
+        //         name : $('#editName').val()
+        //         // isDelete : false
+        //     }
+
+        //     $.ajax({
+        //         url:'http://localhost:5000/editrelation/' + editId,
+        //         type:'PUT',
+        //         dataType:'json',
+        //         data:JSON.stringify(editData),
+        //         contentType:'application/json',
+        //         success:function(simpanEdit) {
+        //             $('#editrelationmodal').modal('hide')
+        //             loadRelation()
+        //         }
+        //     })
+        // }
+
+        function deleteRelationModal(id) {
+            $.ajax({
+                url:'http://localhost:5000/relationbyid/' + id,
+                type:'GET',
+                contentType:'application/json',
+                success:function(data) {
+                    console.log(data);
+
+                    str = `
+                    <table class="table">
+                    <tr>
+                        <td colspan="2" style="color:grey;">Anda akan menghapus ${data[0].name}</td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            <button class="btn btn-danger" data-bs-dismiss="modal" style="width: 130px;">Tidak</button>    
+                        </td>
+                        <td align="left">
+                            <button class="btn btn-primary" value="${data[0].id}" onclick="deleteRelation(this.value)" style="width: 130px;">Ya</button>    
+                        </td>
+                    </tr>
+                    </table>`
+                    ;
+
+                    $('#deleterelation').modal('show');
+                    $('.modal-title').html('Hapus');
+                    $('.modal-body').html(str);
+                }
+            })
+        }
+
+        function deleteRelation(id) {
+
+            $.ajax({
+                url:'http://localhost:5000/hapusrelasi/' + id,
+                type:'DELETE',
+                contentType:'application/json',
+                success:function(relation) {
+                    console.log(relation)
+                    $('#deleterelationmodal').modal('hide')
+                    loadRelation()
+                }
+            })
+        }
+
+</script>
+
+</div>
+
+</body>
+</html>

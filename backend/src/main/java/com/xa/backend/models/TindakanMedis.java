@@ -1,5 +1,6 @@
 package com.xa.backend.models;
 
+
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
@@ -12,32 +13,23 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "m_menu")
-public class Menu {
+@Table(name = "t_doctor_treatment")
+public class TindakanMedis {
     
     @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long Id;
 
-    @Column(name = "name", length = 20)
-    private String Name;
-
-    @Column(name = "url", length = 50)
-    private String Url;
-
-    @Column(name = "parent_id")
-    private Long parentId;
+    @Column(name = "doctor_id")
+    private Long doctorId;
 
     @ManyToOne
-    @JoinColumn(name="parent_id", insertable = false, updatable = false)
-    public Menu menu;
-    
-    @Column(name = "big_icon", length = 100)
-    private String bigIcon;
+    @JoinColumn(name="doctor_id", insertable = false, updatable = false)
+    public Doctor doctor;
 
-    @Column(name = "small_icon", length = 100)
-    private String smallIcon;
+    @Column(name = "name", length = 50)
+    private String Name;
 
     @Column(name = "created_by")
     private Long createdBy;
@@ -81,52 +73,28 @@ public class Menu {
         Id = id;
     }
 
+    public Long getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(Long doctorId) {
+        this.doctorId = doctorId;
+    }
+
+    public Doctor getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
+
     public String getName() {
         return Name;
     }
 
     public void setName(String name) {
         Name = name;
-    }
-
-    public String getUrl() {
-        return Url;
-    }
-
-    public void setUrl(String url) {
-        Url = url;
-    }
-
-    public Long getParentId() {
-        return parentId;
-    }
-
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
-    }
-
-    public Menu getMenu() {
-        return menu;
-    }
-
-    public void setMenu(Menu menu) {
-        this.menu = menu;
-    }
-
-    public String getBigIcon() {
-        return bigIcon;
-    }
-
-    public void setBigIcon(String bigIcon) {
-        this.bigIcon = bigIcon;
-    }
-
-    public String getSmallIcon() {
-        return smallIcon;
-    }
-
-    public void setSmallIcon(String smallIcon) {
-        this.smallIcon = smallIcon;
     }
 
     public Long getCreatedBy() {
@@ -208,5 +176,4 @@ public class Menu {
     public void setDeleted(Boolean deleted) {
         Deleted = deleted;
     }
-    
 }

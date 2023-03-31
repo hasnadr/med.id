@@ -13,10 +13,10 @@ import com.xa.backend.models.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    @Query(value = "SELECT b.fullname, u.role_id " +
-    "FROM usermenu u " +
-    "LEFT JOIN biodata b ON b.id = u.biodata_id " +
-    "WHERE u.role_id = ?1", nativeQuery = true)
+    @Query(value = "SELECT mb.fullname, mu.role_id " +
+    "FROM m_user mu " +
+    "LEFT JOIN m_biodata mb ON mb.id = mu.biodata_id " +
+    "WHERE mu.role_id = ?1", nativeQuery = true)
     List<Map<String, Object>> findByRoleId(Long roleId);
 
 }

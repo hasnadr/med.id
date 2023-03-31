@@ -6,16 +6,15 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "m_user")
-public class User {
-    @Id
+@Table(name = "m_doctor")
+public class Doctor {
+    @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long Id; 
@@ -27,29 +26,10 @@ public class User {
     @JoinColumn(name="biodata_id", insertable = false, updatable = false)
     public Biodata biodata;
 
-    @Column(name = "role_id")
-    private Long roleId;
 
-    @ManyToOne
-    @JoinColumn(name="role_id", insertable = false, updatable = false)
-    public Role role;
+    @Column(name = "str", length = 50)
+    private String Str;
 
-    @Column(name = "email", length = 100)
-    private String Email;
-
-    @Column(name = "password", length = 255)
-    private String Password;
-
-    @Column(name = "login_attempt")
-    private Integer loginAttempt;
-
-    @Column(name = "is_locked")
-    private Boolean isLocked;
-
-    @Column(name = "last_login")
-    private Timestamp lastLogin;
-
-    @NotNull
     @Column(name = "created_by")
     private Long createdBy;
 
@@ -92,14 +72,6 @@ public class User {
         Id = id;
     }
 
-    public Biodata getBiodata() {
-        return biodata;
-    }
-
-    public void setBiodata(Biodata biodata) {
-        this.biodata = biodata;
-    }
-
     public Long getBiodataId() {
         return biodataId;
     }
@@ -108,68 +80,20 @@ public class User {
         this.biodataId = biodataId;
     }
 
-    public Role getRole() {
-        return role;
+    public Biodata getBiodata() {
+        return biodata;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setBiodata(Biodata biodata) {
+        this.biodata = biodata;
     }
 
-    public Long getRoleId() {
-        return roleId;
+    public String getStr() {
+        return Str;
     }
 
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
-    }
-
-    public String getEmail() {
-        return Email;
-    }
-
-    public void setEmail(String email) {
-        Email = email;
-    }
-
-    public String getPassword() {
-        return Password;
-    }
-
-    public void setPassword(String password) {
-        Password = password;
-    }
-
-    public Integer getLoginAttempt() {
-        return loginAttempt;
-    }
-
-    public void setLoginAttempt(Integer loginAttempt) {
-        this.loginAttempt = loginAttempt;
-    }
-
-    public Boolean getIsLocked() {
-        return isLocked;
-    }
-
-    public void setIsLocked(Boolean isLocked) {
-        this.isLocked = isLocked;
-    }
-
-    public Timestamp getLastLogin() {
-        return lastLogin;
-    }
-
-    public void setLastLogin(Timestamp lastLogin) {
-        this.lastLogin = lastLogin;
-    }
-
-    public User getUserCreated() {
-        return userCreated;
-    }
-
-    public void setUserCreated(User userCreated) {
-        this.userCreated = userCreated;
+    public void setStr(String str) {
+        Str = str;
     }
 
     public Long getCreatedBy() {
@@ -180,20 +104,20 @@ public class User {
         this.createdBy = createdBy;
     }
 
+    public User getUserCreated() {
+        return userCreated;
+    }
+
+    public void setUserCreated(User userCreated) {
+        this.userCreated = userCreated;
+    }
+
     public Timestamp getCreatedOn() {
         return createdOn;
     }
 
     public void setCreatedOn(Timestamp createdOn) {
         this.createdOn = createdOn;
-    }
-
-    public User getUserModified() {
-        return userModified;
-    }
-
-    public void setUserModified(User userModified) {
-        this.userModified = userModified;
     }
 
     public Long getModifiedBy() {
@@ -204,6 +128,14 @@ public class User {
         this.modifiedBy = modifiedBy;
     }
 
+    public User getUserModified() {
+        return userModified;
+    }
+
+    public void setUserModified(User userModified) {
+        this.userModified = userModified;
+    }
+
     public Timestamp getModifiedOn() {
         return modifiedOn;
     }
@@ -212,20 +144,20 @@ public class User {
         this.modifiedOn = modifiedOn;
     }
 
-    public User getUserDeleted() {
-        return userDeleted;
-    }
-
-    public void setUserDeleted(User userDeleted) {
-        this.userDeleted = userDeleted;
-    }
-
     public Long getDeletedBy() {
         return deletedBy;
     }
 
     public void setDeletedBy(Long deletedBy) {
         this.deletedBy = deletedBy;
+    }
+
+    public User getUserDeleted() {
+        return userDeleted;
+    }
+
+    public void setUserDeleted(User userDeleted) {
+        this.userDeleted = userDeleted;
     }
 
     public Timestamp getDeletedOn() {
@@ -243,6 +175,4 @@ public class User {
     public void setDeleted(Boolean deleted) {
         Deleted = deleted;
     }
-
-    
 }

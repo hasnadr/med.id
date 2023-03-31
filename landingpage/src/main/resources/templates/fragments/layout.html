@@ -21,7 +21,37 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          ...
+          <p style="text-align:center; color:grey;">Masukkan minimal 1 kata kunci untuk pencarian dokter Anda</p>
+          <table class="table">
+              <tr>
+                  <td colspan="2"><small style="color:grey;">Lokasi</small>
+                      <select id="locationId" class="form-select"></select>
+                  </td>
+              </tr>
+              <tr>
+                  <td colspan="2"><small style="color:grey;">Nama Dokter</small><br>
+                      <input class="form-control" id="inisialDokter" type="text" maxlength="30" size="56" ></td>
+              </tr>
+              <tr>
+                  <td colspan="2"><small style="color:grey;">Spesialisasi/Sub-spesialisasi</small>
+                      <select id="spId" class="form-select"></select>
+                      <i><span style="color: red; font-size: 10pt;" id="spValidation"></span>
+                  </td>
+              </tr>
+              <tr>
+                  <td colspan="2"><small style="color:grey;">Tindakan Medis</small>
+                      <select id="tindakanId" class="form-select"></select>
+                  </td>
+              </tr>
+              <tr>
+                  <td align="right">
+                      <button class="btn btn-outline-primary" onclick="showPage()" style="width: 130px;">Atur Ulang</button>    
+                  </td>
+                  <td align="left">
+                      <button class="btn btn-primary" value="" onclick="cariDokter()" style="width: 130px;">Cari</button>    
+                  </td>
+              </tr>
+          </table>
         </div>
         <div class="modal-footer">
         </div>
@@ -40,7 +70,7 @@ xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         
           <form class="d-flex">
-            <input class="form-control form-control-sm" type="text" placeholder="Cari Dokter atau Faskes" aria-label="Search" size="100" style="margin:5px;">
+            <input class="form-control form-control-sm" type="text" placeholder="Cari Dokter atau Obat" aria-label="Search" size="100" style="margin:5px;">
             <span>
               <button type="button" onclick="searchText()" class="btn btn-outline-secondary border-start-0 border-bottom-0 border ms-n5" style="background-color: rgb(44, 156, 219); margin:5px;">
                 <i class="fa fa-search" style="color: white;"></i>

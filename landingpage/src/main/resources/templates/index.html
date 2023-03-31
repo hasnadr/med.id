@@ -8,52 +8,66 @@
 <body>
 <div layout:fragment="content">
     <div>
-            <div class="row" id="menuData"></tr>
+            <div class="row" id="menuData"></div>
     </div>
     <script>
-    //    userdetail()
-    //    function userDetail(roleId) {
-    //     $.ajax({
-    //         url:'http://localhost:5000/getuserrole/' + roleId,
-    //         type:'GET',
-    //         dataType:'json',
-    //         contentType:'application/json',
-    //         success:function(userdetail) {
-    //             console.log(userdetail)
-    //             str = '';
-    //             for(i = 0; i < userdetail.length; i++) {
-    //                 str += `
-    //             <tr>
-    //                 <td>${userdetail[i].biodata.fullname}</td>  
-    //             </tr>
-    //             `;
-    //             }
-    //             $('#userData').html(str)
-    //         }
-    //     })
-    //    }
 
-    loadMenu()
-       function loadMenu() {
+        function getLastValue() {
+            url = window.location.href
+            var strarr = url.split('/')
+            return strarr[strarr.length-1]
+        }
+        console.log(getLastValue())
+
+    loadMainMenu()
+    function loadMainMenu() {
         $.ajax({
-            url:'http://localhost:5000/menu/1/1',
+        url:'http://localhost:5000/menu/' + getLastValue(),
+        type:'GET',
+        contentType:'application/json',
+        success:function(menu) {
+            console.log(menu)
+            var str = '';
+            for(i = 0; i < menu.length; i++) {
+            str += `
+            <div class="" style="">
+            <li class="nav-item">
+            <button value="${menu[i].id}" onclick="loadSubMenu(this.value)" class="nav-link active btn" aria-current="page" back style="background-color: transparent; color:rgb(44, 156, 219); font-weight: 600;">
+                <svg class="bi me-2" width="16" height="16"><use xlink:href=""/></svg>
+                ${menu[i].name}
+            </button>
+            </li>
+            </div>
+            `;
+            }
+            console.log(str)
+            $('#showMenu').html(str)
+        }
+        })
+    }
+    function loadSubMenu(id) {
+        $.ajax({
+            url:'http://localhost:5000/menu/' + getLastValue() + '/' + id,
             type:'GET',
             contentType:'application/json',
-            success:function(menu) {
-                console.log(menu)
+            success:function(submenu) {
+                console.log(submenu)
                 var str = '';
                 str += '<div class="container">';
                 str += '<div class="row">';
-                    for(i = 0; i < menu.length; i++) {
-                        str += '<div class="col">'
+                    for(i = 0; i < submenu.length; i++) {
+                        str += '<div class="col-sm-2 text-center">'
                             // str += '<div class = "card" style = "width: 7rem;">'
-                            if(menu[i].big_icon == null) {
+                            if(submenu[i].big_icon == null) {
                                 str += `<img src = "/images/doctor.png">`
                             } else {
+                                // str+= `<a onclick="${submenu[i].id}()" class="nav-link active" aria-current="page" back style="color:rgb(44, 156, 219); font-weight: normal;">`
+                                str+= `<button value="${submenu[i].id}" onclick="showPage${submenu[i].id}()" class="" aria-current="page" back style="background-color:transparent; border-width:0;" >`
                                 str+= '<figure>'
-                                str += `<img src = "/images/${menu[i].big_icon}" style="height:65px;">`
-                                str+= `<figcaption class="" style="">${menu[i].name}</figcaption>`
+                                str+= `<img src = "/images/${submenu[i].big_icon}" style="height:65px;">`
+                                str+= `<a style="color:rgb(44, 156, 219); font-weight: normal;"><figcaption class="" style="">${submenu[i].name}</figcaption></a>`
                                 str+= '</figure>'
+                                str+= `</button>`
                             }
                             str += '<br>'
                             // str+= '<div class = "card body">'
@@ -66,6 +80,118 @@
             }
         })
        }
+
+       function showLocation() {
+        $.ajax({
+            url:'http://localhost:5000/location',
+            type:'GET',
+            contentType:'application/json',
+            success:function(location) {
+                var str = '<option selected value="" style="color: grey;" >--Pilih--</option>';
+                    for(i=0; i<location.length; i++) {
+                        str += '<option value="'+location[i].name+'">'+location[i].name+'</option>'
+                    }
+                    $('#locationId').html(str);
+                }
+        })
+       }
+
+       function showSp() {
+        $.ajax({
+            url:'http://localhost:5000/specialization',
+            type:'GET',
+            contentType:'application/json',
+            success:function(sp) {
+                var str = '<option selected value="" style="color: grey;" >--Pilih--</option>';
+                    for(i=0; i<sp.length; i++) {
+                        str += '<option value="'+sp[i].name+'">'+sp[i].name+'</option>'
+                    }
+                    $('#spId').html(str);
+                }
+        })
+       }
+
+       function showTindakan() {
+        $.ajax({
+            url:'http://localhost:5000/tindakan',
+            type:'GET',
+            contentType:'application/json',
+            success:function(tindakan) {
+                var str = '<option selected value="" style="color: grey;" >--Pilih--</option>';
+                    for(i=0; i<tindakan.length; i++) {
+                        str += '<option value="'+tindakan[i].name+'">'+tindakan[i].name+'</option>'
+                    }
+                    $('#tindakanId').html(str);
+                }
+        })
+       }
+
+       function showPage38() {
+            $('#mymodal').modal('show');
+            $('.modal-title').html('Cari Dokter');
+            $('.modal-body').html();
+
+            showLocation()
+            showSp()
+            showTindakan()
+            // var sp = $('#spId').val() hasil dalam bentuk id harus diubah ke nama dari id tsb
+            // $('#searchKey').html(sp)
+       }
+
+       function cariDokter() {
+            // const searchData = {
+            //     spData : $('#spData').val()
+            // }
+            if($('#spId').val() == "") {
+                $('#spValidation').html("Pilihan Spesialisasi harus diisi")
+            } else {
+                var location = $('#locationId').val()
+                var dokter = $('#inisialDokter').val()
+                var sp = $('#spId').val()
+                var tindakan = $('#tindakanId').val()
+
+                console.log(location)
+                console.log(dokter)
+                console.log(sp)
+                console.log(tindakan)
+
+                if(location = "") location = "_";
+                if(dokter = "") dokter = "_";
+                if(sp = "") sp = "_";
+                if(tindakan = "") tindakan = "_";
+
+                $.ajax({
+				// url: 'http://localhost:5000/search/' + location + '/' + dokter + '/' + sp + '/' + tindakan,
+                url: 'http://localhost:8086/home/search-doctor',
+				type: 'GET',
+                // dataType: 'json',
+                // data:JSON.stringify(spData),
+				contentType: 'application/json',
+				success: function (result) {
+					// $('#mymodal').modal('hide')
+					// $('.modal-title').html('Cari Dokter')
+					// $('.modal-body').html(result)
+                    console.log(result)
+                    window.open('http://localhost:8086/home/search-doctor/' + $('#locationId').val() + '/' + $('#inisialDokter').val() + '/' + $('#spId').val() + '/' + $('#tindakanId').val(), '_self')
+                    // loadResult()
+				}
+			})
+
+            }
+
+		}
+
+        function showPage8() {
+            $.ajax({
+                url: 'http://localhost:8086/home/customer-relation',
+				type: 'GET',
+				contentType: 'application/json',
+				success: function (result) {
+                    console.log(result)
+                    window.open('http://localhost:8086/home/customer-relation', '_self')
+				}
+			})
+        }
        
     </script>
 </div>

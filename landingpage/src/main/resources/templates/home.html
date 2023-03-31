@@ -14,7 +14,8 @@
         </table>
     </div>
 <script>
-    loadMenu()
+
+        loadMenu()
        function loadMenu() {
         $.ajax({
             url:'http://localhost:5000/menu/5',
@@ -31,10 +32,12 @@
                             if(menu[i].big_icon == null) {
                                 str += `<img src = "/images/doctor.png">`
                             } else {
-                                str+= '<figure>'
+                                str+= `<button value="${menu[i].id}" onclick="showPage(this.value)" class="nav-link active" aria-current="page" back style="background-color:transparent; border-width:0;">`
+                                str+= `<figure>`
                                 str += `<img src = "/images/${menu[i].big_icon}" style="height:65px;">`
-                                str+= `<figcaption class="text-center" style="">${menu[i].name}</figcaption>`
-                                str+= '</figure>'
+                                str+= `<a style="color:rgb(44, 156, 219); font-weight: normal;"><figcaption class="" style="">${menu[i].name}</figcaption></a>`
+                                str+= `</figure>`
+                                str+= `</button>`
                             }
                             str += '<br>'
                             // str+= '<div class = "card body">'
@@ -43,10 +46,110 @@
                     }
                 str += '</div>';
                 str += '</div>';
+                console.log(str)
                 $('#menuData').html(str)
             }
         })
        }
+
+       function showLocation() {
+        $.ajax({
+            url:'http://localhost:5000/location',
+            type:'GET',
+            contentType:'application/json',
+            success:function(location) {
+                var str = '<option selected value="" style="color: grey;" >--Pilih--</option>';
+                    for(i=0; i<location.length; i++) {
+                        str += '<option value="'+location[i].name+'">'+location[i].name+'</option>'
+                    }
+                    $('#locationId').html(str);
+                }
+        })
+       }
+
+       function showSp() {
+        $.ajax({
+            url:'http://localhost:5000/specialization',
+            type:'GET',
+            contentType:'application/json',
+            success:function(sp) {
+                var str = '<option selected value="" style="color: grey;" >--Pilih--</option>';
+                    for(i=0; i<sp.length; i++) {
+                        str += '<option value="'+sp[i].name+'">'+sp[i].name+'</option>'
+                    }
+                    $('#spId').html(str);
+                }
+        })
+       }
+
+       function showTindakan() {
+        $.ajax({
+            url:'http://localhost:5000/tindakan',
+            type:'GET',
+            contentType:'application/json',
+            success:function(tindakan) {
+                var str = '<option selected value="" style="color: grey;" >--Pilih--</option>';
+                    for(i=0; i<tindakan.length; i++) {
+                        str += '<option value="'+tindakan[i].name+'">'+tindakan[i].name+'</option>'
+                    }
+                    $('#tindakanId').html(str);
+                }
+        })
+       }
+
+       function cariDokter() {
+            // const searchData = {
+            //     spData : $('#spData').val()
+            // }
+            if($('#spId').val() == "") {
+                $('#spValidation').html("Pilihan Spesialisasi harus diisi")
+            } else {
+                var location = $('#locationId').val()
+                var dokter = $('#inisialDokter').val()
+                var sp = $('#spId').val()
+                var tindakan = $('#tindakanId').val()
+
+                console.log(location)
+                console.log(dokter)
+                console.log(sp)
+                console.log(tindakan)
+
+                if(location = "") location = "_";
+                if(dokter = "") dokter = "_";
+                if(sp = "") sp = "_";
+                if(tindakan = "") tindakan = "_";
+
+                // $.ajax({
+				// url: 'http://localhost:8086/home/search-doctor/' + $('#locationId').val() + '/' + $('#inisialDokter').val() + '/' + $('#spId').val() + '/' + $('#tindakanId').val(),
+				// type: 'GET',
+                // dataType: 'json',
+                // data:JSON.stringify(spData),
+				// contentType: 'html',
+				// success: function (result) {
+                //     for (i = 0; i < result.length; i++) {
+                //         result[i].nama_dokter
+                //     }
+                //     console.log(result)
+                    window.open('http://localhost:8086/home/search-doctor/' + $('#locationId').val() + '/' + $('#inisialDokter').val() + '/' + $('#spId').val() + '/' + $('#tindakanId').val(), '_self')
+                    // loadResult()
+			// 	}
+			//     })
+
+            }
+
+	}
+
+       function showPage() {
+
+            $('#mymodal').modal('show');
+            $('.modal-title').html('Cari Dokter');
+            $('.modal-body').html();
+
+            showLocation()
+            showSp()
+            showTindakan()
+       }
+
 </script>
 </div>
 

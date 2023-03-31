@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{fragments/layoutpage}">
+<head>
+    <title>Cari Dokter</title>
+</head>
+<body>
+
+<div layout:fragment="content" style="padding: 2rem; font-family: Verdana; color: grey;">
+    <div class="row">
+        <div class="col">
+            <p style="margin-left: 3rem;">
+                Hasil pencarian berdasarkan kata kunci: 
+                <span id="searchKey" style="font-size:15; font-weight:bold;"></span>
+            </p>
+            <p style="margin-left: 3rem;">
+                Spesialisasi/Sub-spesialisasi: 
+                <span id="searchKeySp" style="font-size:15; font-weight:bold;"></span>
+            </p>
+        </div>
+        <div class="col">
+            <button class="btn btn-outline-primary" onclick="showModal()" style="float: right; box-sizing: border-box; margin-right: 3rem; font-size: 14px;">
+                Ulangi Pencarian
+            </button>
+        </div>
+    </div>
+
+    <div class="container-fluid overflow-hidden" style="padding-top: 1rem; font-family: Verdana; color: grey;">
+		<div class="row gx-3" id="resultData">
+            <!--hasil pencarian kolom 1 -->
+			<!-- <div class="col-6">
+                <div class="p-3 border border-primary bg-transparent"  style="border-radius: 5px;">
+					<div class="row">
+						<div class="col-sm-8" style="margin-top: 5px;">
+							<table>
+								<tr>
+									<td><strong>Nama Dokter</strong></td>
+								</tr>
+								<tr>
+									<td style="font-size: 9pt; padding-left: 10px;">Nama Spesialis</td>
+                                    <td></td>
+								</tr>
+								<tr>
+									<td style="font-size: 9pt; padding-left: 10px; padding-bottom: 10px;">Lama Tahun Pengalaman</td>
+								</tr>
+								<tr>
+									<td style="font-size: 10pt; padding-left: 11px;">
+                                        <img src="/images/building.png" width="15px" height="auto">
+                                        RS Mitra (Jatiasih, Bekasi)
+                                    </td>
+								</tr>
+								<tr>
+									<td style="font-size: 10pt; padding-left: 11px;">
+                                        <img src="/images/building.png" width="15px" height="auto">
+                                        RS Persahabatan (Rawamangun, Jakarta Timur)
+                                    </td>
+								</tr>
+                                <tr>
+									<td>
+                                        <button class="btn btn-outline-primary btn-sm btn-block" style="margin: 14px; width: 330px;">
+                                            Lihat info lebih banyak
+                                        </button>
+                                    </td>
+                                </tr>
+							    </table>
+						</div>
+						<div class="col">
+							<table>
+								<tr>
+									<td style="padding: 11px;">
+                                        <img class="img-responsive pdoctor" src="/images/profil.png" width="80" height="auto">
+                                    </td>
+								</tr>
+                                <tr>
+                                    <td>
+                                        <button class="btn btn-outline-primary btn-sm btn-block" style="margin: 1px; width: 100px;">Chat</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <button class="btn btn-primary btn-sm btn-block" style="margin: 1px; width: 100px;">Buat Janji</button>
+                                    </td>
+								</tr>
+							</table>
+						</div>
+					</div>
+                    </div>
+				</div> -->
+
+                <!-- Hasil pencarian kolom 2 -->
+                <!-- <div class="col-6">
+                    <div class="p-3 border border-primary bg-transparent" style="border-radius: 5px;">
+					<div class="row">
+						<div class="col-sm-8" style="margin-top: 5px;">
+							<table>
+								<tr>
+									<td><strong>Nama Dokter</strong></td>
+								</tr>
+								<tr>
+									<td style="font-size: 9pt; padding-left: 10px;">Nama Spesialis</td>
+                                    <td></td>
+								</tr>
+								<tr>
+									<td style="font-size: 9pt; padding-left: 10px; padding-bottom: 10px;">Lama Tahun Pengalaman</td>
+								</tr>
+								<tr>
+									<td style="font-size: 10pt; padding-left: 11px;">
+                                        <img src="/images/building.png" width="15px" height="auto">
+                                        RS Mitra (Jatiasih, Bekasi)
+                                    </td>
+								</tr>
+								<tr>
+									<td style="font-size: 10pt; padding-left: 11px;">
+                                        <img src="/images/building.png" width="15px" height="auto">
+                                        RS Persahabatan (Rawamangun, Jakarta Timur)
+                                    </td>
+								</tr>
+                                <tr>
+									<td>
+                                        <button class="btn btn-outline-primary btn-sm btn-block" style="margin: 14px; width: 330px;">
+                                            Lihat info lebih banyak
+                                        </button>
+                                    </td>
+                                </tr>
+							    </table>
+						</div>
+						<div class="col">
+							<table>
+								<tr>
+									<td style="padding: 11px;">
+                                        <img class="img-responsive pdoctor" src="/images/profil.png" width="80" height="auto">
+                                    </td>
+								</tr>
+                                <tr>
+                                    <td>
+                                        <button class="btn btn-outline-primary btn-sm btn-block" style="margin: 1px; width: 100px;">Chat</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <button class="btn btn-primary btn-sm btn-block" style="margin: 1px; width: 100px;">Buat Janji</button>
+                                    </td>
+								</tr>
+							</table>
+						</div>
+					</div>
+                    </div>
+				</div> -->
+                <!--batas kolom 2 -->
+		</div>
+	</div>
+
+            <button class="btn btn-primary" onclick="" style="float: right; box-sizing: border-box; margin: 5px; font-size: 14px;">
+                Selanjutnya
+            </button>
+            <button class="btn btn-outline-primary disabled" onclick="" style="float: right; box-sizing: border-box; margin: 5px; font-size: 14px;">
+                Sebelumnya
+            </button>
+
+        <!-- <table>
+            <thead></thead>
+            <tbody id="resultData"></tbody>
+        </table> -->
+<script>
+
+function showLocation() {
+        $.ajax({
+            url:'http://localhost:5000/location',
+            type:'GET',
+            contentType:'application/json',
+            success:function(location) {
+                var str = '<option selected value="-" style="color: grey;" >--Pilih--</option>';
+                    for(i=0; i<location.length; i++) {
+                        str += '<option value="'+location[i].name+'">'+location[i].name+'</option>'
+                    }
+                    $('#locationId').html(str);
+                }
+        })
+       }
+
+       function showSp() {
+        $.ajax({
+            url:'http://localhost:5000/specialization',
+            type:'GET',
+            contentType:'application/json',
+            success:function(sp) {
+                var str = '<option selected value="-" style="color: grey;" >--Pilih--</option>';
+                    for(i=0; i<sp.length; i++) {
+                        str += '<option value="'+sp[i].name+'">'+sp[i].name+'</option>'
+                    }
+                    $('#spId').html(str);
+                }
+        })
+       }
+
+       function showTindakan() {
+        $.ajax({
+            url:'http://localhost:5000/tindakan',
+            type:'GET',
+            contentType:'application/json',
+            success:function(tindakan) {
+                var str = '<option selected value="-" style="color: grey;" >--Pilih--</option>';
+                    for(i=0; i<tindakan.length; i++) {
+                        str += '<option value="'+tindakan[i].name+'">'+tindakan[i].name+'</option>'
+                    }
+                    $('#tindakanId').html(str);
+                }
+        })
+       }
+       function cariDokter() {
+            // const searchData = {
+            //     spData : $('#spData').val()
+            // }
+            if($('#spId').val() == "-") {
+                $('#spValidation').html("Pilihan Spesialisasi harus diisi")
+            } else {
+                var location = $('#locationId').val()
+                var dokter = $('#inisialDokter').val()
+                var sp = $('#spId').val()
+                var tindakan = $('#tindakanId').val()
+
+                console.log(location)
+                console.log(dokter)
+                console.log(sp)
+                console.log(tindakan)
+
+                $.ajax({
+				// url: 'http://localhost:5000/search/' + location + '/' + dokter + '/' + sp + '/' + tindakan,
+                url: 'http://localhost:8086/home/search-doctor',
+				type: 'GET',
+                // dataType: 'json',
+                // data:JSON.stringify(spData),
+				contentType: 'application/json',
+				success: function (result) {
+                    for (i = 0; i < result.length; i++) {
+                        result[i].nama_dokter
+                    }
+                    console.log(result)
+                    window.open('http://localhost:8086/home/search-doctor/' + $('#locationId').val() + '/' + $('#inisialDokter').val() + '/' + $('#spId').val() + '/' + $('#tindakanId').val(), '_self')
+                    $('#resultData').html(str)
+                    $('#mymodal').modal('hide')
+                    // loadResult()
+				}
+			    })
+
+            }
+
+	}
+
+    function showModal() {
+
+            $('#mymodal').modal('show');
+            $('.modal-title').html('Cari Dokter');
+            $('.modal-body').html();
+
+            showLocation()
+            showSp()
+            showTindakan()
+            
+    }
+
+    function getParamsValue() {
+    url = window.location.href
+    var strarr = url.split('/')
+    return strarr
+}
+var params = getParamsValue();
+console.log(params)
+
+// var location = $('#locationId').val()
+// $('#searchKeyLokasi').html(location)
+// var dokter = $('#inisialDokter').val()
+// $('#searchKeyDokter').html(dokter)
+// var sp = $('#spId').val()
+// $('#searchKeySp').html(sp)
+// var tindakan = $('#tindakanId').val()
+// $('#searchKeyTindakan').html(tindakan)
+
+loadResult()
+function loadResult() {
+    let str = ''
+    $.ajax({
+    //url/lokasi/dokter/sp/tindakan
+    url:'http://localhost:5000/search2/' + params[5] + '/' + params[6] + '/' + params[7] + '/' + params[8],
+    type:'GET',
+    contentType:'application/json',
+    success:function(data) {
+        console.log(data)
+        for(i=0; i < data.length; i++) {
+            str += `
+            <div class="col-6">
+                <div class="p-3 border border-primary bg-transparent"  style="border-radius: 5px;">
+					<div class="row">
+						<div class="col-sm-8" style="margin-top: 5px;">
+							<table>
+								<tr>
+									<td><strong>${data[i].nama_dokter}</strong></td>
+								</tr>
+								<tr>
+									<td style="font-size: 9pt; padding-left: 10px;">${data[i].spesialisasi}</td>
+                                    <td></td>
+								</tr>
+								<tr>
+									<td style="font-size: 9pt; padding-left: 10px; padding-bottom: 10px;">${data[i].pengalaman} Tahun Pengalaman</td>
+								</tr>
+                                <tr>
+                                    <td id="faskes">`
+                                
+                                $.ajax({
+                                    url:'http://localhost:5000/search2/' + data[i].nama_dokter,
+                                    type:'GET',
+                                    contentType:'application/json',
+                                    async: false,
+                                    success: function(faskes) {
+                                        console.log(faskes)
+                                        for(j=0; j<faskes.length; j++) {
+                                            str += faskes[j].fasilitas_kesehatan + ', ('+faskes[j].lokasi+')<br>'
+                                        }
+                                    }
+                                })
+                                str +=    `</td>
+                                </tr>
+                                <tr>
+									<td>
+                                        <button class="btn btn-outline-primary btn-sm btn-block" style="margin: 14px; width: 330px;">
+                                            Lihat info lebih banyak
+                                        </button>
+                                    </td>
+                                </tr>
+							    </table>
+						</div>
+						<div class="col">
+							<table>
+								<tr>
+									<td style="padding: 11px;">
+                                        <img class="img-responsive pdoctor" src="/images/profil_${data[i].nama_dokter}.png" width="80" height="auto">
+                                    </td>
+								</tr>
+                                <tr>
+                                    <td>
+                                        <button class="btn btn-outline-primary btn-sm btn-block" style="margin: 1px; width: 100px;">Chat</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <button class="btn btn-primary btn-sm btn-block" style="margin: 1px; width: 100px;">Buat Janji</button>
+                                    </td>
+								</tr>
+							</table>
+						</div>
+					</div>
+                    </div>
+				</div>
+            `;
+        }
+
+        console.log(str)
+        $('#resultData').html(str)
+        $('#searchKey').html(params[5].replaceAll('%20', ' ') + ', ' + params[6].replaceAll('%20', ' ') + ', ' + params[8].replaceAll('%20', ' '))
+        $('#searchKeySp').html(params[7].replaceAll('%20', ' '))
+
+    }
+})
+}
+
+// var sp = $('#spData').val()
+// $('#searchKey').html(sp)
+
+    
+
+// CariDokter()
+// function loadResult(lokasi, dokter, sp, tindakan) {
+//     $.ajax({
+//             url:'http://localhost:5000/search/' + lokasi + '/' + dokter + '/' + sp + '/' + tindakan,
+//             type:'GET',
+//             contentType:'application/json',
+//             success:function(data) {
+//                 var str = '';
+//                 for(i = 0; i < data.length; i++) {
+//                     str = `
+//                     <div class="row">
+//                         <block style="width:60px; height:30px; padding: 10px; border:2px solid black; margin:0;">
+//                             <div class="row">
+//                             <tr>${data[i].nama_dokter}</tr>
+//                             <tr>${data[i].spesialisasi}</tr>
+//                             <tr>${data[i].fasilitas_kesehatan} (${data[i].lokasi})</tr>
+//                             <tr>${data[i].nama_dokter}</tr>
+//                             </div>
+//                             <button class="btn">Lihat info lebih banyak</button>
+//                         </block>
+//                     </div>
+//                     `;
+//                 }
+//             }
+//         })
+// }
+
+// function cariDokter(sp) {
+//     $.ajax({
+//             url:'http://localhost:5000/search/' + sp,
+//             type:'GET',
+//             contentType:'application/json',
+//             success:function(data) {
+//                 var str = '';
+//                 for(i = 0; i < data.length; i++) {
+//                     str = `
+//                     <div class="row">
+//                         <block style="width:60px; height:30px; padding: 10px; border:2px solid black; margin:0;">
+//                             <div class="row">
+//                             <tr>${data[i].nama_dokter}</tr>
+//                             <tr>${data[i].spesialisasi}</tr>
+//                             <tr>${data[i].fasilitas_kesehatan} (${data[i].lokasi})</tr>
+//                             </div>
+//                             <button class="btn">Lihat info lebih banyak</button>
+//                         </block>
+//                     </div>
+//                     `;
+//                 }
+//             }
+//         })
+// }
+        
+</script>
+</div>
+
+</body>
+</html>

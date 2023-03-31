@@ -12,32 +12,30 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "m_menu")
-public class Menu {
+@Table(name = "t_doctor_office")
+public class DoctorOffice {
     
     @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long Id;
 
-    @Column(name = "name", length = 20)
-    private String Name;
-
-    @Column(name = "url", length = 50)
-    private String Url;
-
-    @Column(name = "parent_id")
-    private Long parentId;
+    @Column(name = "doctor_id")
+    private Long doctorId;
 
     @ManyToOne
-    @JoinColumn(name="parent_id", insertable = false, updatable = false)
-    public Menu menu;
-    
-    @Column(name = "big_icon", length = 100)
-    private String bigIcon;
+    @JoinColumn(name="doctor_id", insertable = false, updatable = false)
+    public Doctor doctor;
 
-    @Column(name = "small_icon", length = 100)
-    private String smallIcon;
+    @Column(name = "faskes_id")
+    private Long faskesId;
+
+    @ManyToOne
+    @JoinColumn(name="faskes_id", insertable = false, updatable = false)
+    public FasilitasKesehatan faskes;
+
+    @Column(name = "specialization", length = 100)
+    private String Specialization;
 
     @Column(name = "created_by")
     private Long createdBy;
@@ -81,52 +79,44 @@ public class Menu {
         Id = id;
     }
 
-    public String getName() {
-        return Name;
+    public Long getDoctorId() {
+        return doctorId;
     }
 
-    public void setName(String name) {
-        Name = name;
+    public void setDoctorId(Long doctorId) {
+        this.doctorId = doctorId;
     }
 
-    public String getUrl() {
-        return Url;
+    public Doctor getDoctor() {
+        return doctor;
     }
 
-    public void setUrl(String url) {
-        Url = url;
+    public void setDoctor(Doctor doctor) {
+        this.doctor = doctor;
     }
 
-    public Long getParentId() {
-        return parentId;
+    public Long getFaskesId() {
+        return faskesId;
     }
 
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
+    public void setFaskesId(Long faskesId) {
+        this.faskesId = faskesId;
     }
 
-    public Menu getMenu() {
-        return menu;
+    public FasilitasKesehatan getFaskes() {
+        return faskes;
     }
 
-    public void setMenu(Menu menu) {
-        this.menu = menu;
+    public void setFaskes(FasilitasKesehatan faskes) {
+        this.faskes = faskes;
     }
 
-    public String getBigIcon() {
-        return bigIcon;
+    public String getSpecialization() {
+        return Specialization;
     }
 
-    public void setBigIcon(String bigIcon) {
-        this.bigIcon = bigIcon;
-    }
-
-    public String getSmallIcon() {
-        return smallIcon;
-    }
-
-    public void setSmallIcon(String smallIcon) {
-        this.smallIcon = smallIcon;
+    public void setSpecialization(String specialization) {
+        Specialization = specialization;
     }
 
     public Long getCreatedBy() {
@@ -208,5 +198,4 @@ public class Menu {
     public void setDeleted(Boolean deleted) {
         Deleted = deleted;
     }
-    
 }

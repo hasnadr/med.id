@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "biodata")
+@Table(name = "m_biodata")
 public class Biodata {
     
     @Id

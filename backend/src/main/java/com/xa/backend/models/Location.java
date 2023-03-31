@@ -12,32 +12,26 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "m_menu")
-public class Menu {
+@Table(name = "m_location")
+public class Location {
     
     @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long Id;
 
-    @Column(name = "name", length = 20)
+    @Column(name = "name", length = 100)
     private String Name;
-
-    @Column(name = "url", length = 50)
-    private String Url;
 
     @Column(name = "parent_id")
     private Long parentId;
 
     @ManyToOne
     @JoinColumn(name="parent_id", insertable = false, updatable = false)
-    public Menu menu;
-    
-    @Column(name = "big_icon", length = 100)
-    private String bigIcon;
+    public Location location;
 
-    @Column(name = "small_icon", length = 100)
-    private String smallIcon;
+    @Column(name = "location_level_id", length = 100)
+    private Long locationLevelId;
 
     @Column(name = "created_by")
     private Long createdBy;
@@ -89,14 +83,6 @@ public class Menu {
         Name = name;
     }
 
-    public String getUrl() {
-        return Url;
-    }
-
-    public void setUrl(String url) {
-        Url = url;
-    }
-
     public Long getParentId() {
         return parentId;
     }
@@ -105,28 +91,20 @@ public class Menu {
         this.parentId = parentId;
     }
 
-    public Menu getMenu() {
-        return menu;
+    public Location getLocation() {
+        return location;
     }
 
-    public void setMenu(Menu menu) {
-        this.menu = menu;
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
-    public String getBigIcon() {
-        return bigIcon;
+    public Long getLocationLevelId() {
+        return locationLevelId;
     }
 
-    public void setBigIcon(String bigIcon) {
-        this.bigIcon = bigIcon;
-    }
-
-    public String getSmallIcon() {
-        return smallIcon;
-    }
-
-    public void setSmallIcon(String smallIcon) {
-        this.smallIcon = smallIcon;
+    public void setLocationLevelId(Long locationLevelId) {
+        this.locationLevelId = locationLevelId;
     }
 
     public Long getCreatedBy() {

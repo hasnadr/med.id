@@ -12,33 +12,47 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "m_menu")
-public class Menu {
+@Table(name = "m_medical_facility")
+public class FasilitasKesehatan {
     
     @javax.persistence.Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long Id;
 
-    @Column(name = "name", length = 20)
+    @Column(name = "name", length = 50)
     private String Name;
 
-    @Column(name = "url", length = 50)
-    private String Url;
-
-    @Column(name = "parent_id")
-    private Long parentId;
+    @Column(name = "kategori_faskes_id")
+    private Long kategoriFaskesId;
 
     @ManyToOne
-    @JoinColumn(name="parent_id", insertable = false, updatable = false)
-    public Menu menu;
+    @JoinColumn(name="kategori_faskes_id", insertable = false, updatable = false)
+    public KategoriFaskes kategoriFaskes;
     
-    @Column(name = "big_icon", length = 100)
-    private String bigIcon;
+    @Column(name = "location_id")
+    private Long locationId;
 
-    @Column(name = "small_icon", length = 100)
-    private String smallIcon;
+    @ManyToOne
+    @JoinColumn(name="location_id", insertable = false, updatable = false)
+    public Location location;
 
+    @Column(name = "full_address")
+    private String fullAddress;
+
+    @Column(name = "email", length = 100)
+    private String Email;
+
+    @Column(name = "phone_code", length = 10)
+    private String phoneCode;
+
+    @Column(name = "phone", length = 15)
+    private String Phone;
+
+    @Column(name = "fax", length = 15)
+    private String Fax;
+
+    
     @Column(name = "created_by")
     private Long createdBy;
 
@@ -89,44 +103,76 @@ public class Menu {
         Name = name;
     }
 
-    public String getUrl() {
-        return Url;
+    public Long getKategoriFaskesId() {
+        return kategoriFaskesId;
     }
 
-    public void setUrl(String url) {
-        Url = url;
+    public void setKategoriFaskesId(Long kategoriFaskesId) {
+        this.kategoriFaskesId = kategoriFaskesId;
     }
 
-    public Long getParentId() {
-        return parentId;
+    public KategoriFaskes getKategoriFaskes() {
+        return kategoriFaskes;
     }
 
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
+    public void setKategoriFaskes(KategoriFaskes kategoriFaskes) {
+        this.kategoriFaskes = kategoriFaskes;
     }
 
-    public Menu getMenu() {
-        return menu;
+    public Long getLocationId() {
+        return locationId;
     }
 
-    public void setMenu(Menu menu) {
-        this.menu = menu;
+    public void setLocationId(Long locationId) {
+        this.locationId = locationId;
     }
 
-    public String getBigIcon() {
-        return bigIcon;
+    public Location getLocation() {
+        return location;
     }
 
-    public void setBigIcon(String bigIcon) {
-        this.bigIcon = bigIcon;
+    public void setLocation(Location location) {
+        this.location = location;
     }
 
-    public String getSmallIcon() {
-        return smallIcon;
+    public String getFullAddress() {
+        return fullAddress;
     }
 
-    public void setSmallIcon(String smallIcon) {
-        this.smallIcon = smallIcon;
+    public void setFullAddress(String fullAddress) {
+        this.fullAddress = fullAddress;
+    }
+
+    public String getEmail() {
+        return Email;
+    }
+
+    public void setEmail(String email) {
+        Email = email;
+    }
+
+    public String getPhoneCode() {
+        return phoneCode;
+    }
+
+    public void setPhoneCode(String phoneCode) {
+        this.phoneCode = phoneCode;
+    }
+
+    public String getPhone() {
+        return Phone;
+    }
+
+    public void setPhone(String phone) {
+        Phone = phone;
+    }
+
+    public String getFax() {
+        return Fax;
+    }
+
+    public void setFax(String fax) {
+        Fax = fax;
     }
 
     public Long getCreatedBy() {
@@ -208,5 +254,5 @@ public class Menu {
     public void setDeleted(Boolean deleted) {
         Deleted = deleted;
     }
-    
+
 }
